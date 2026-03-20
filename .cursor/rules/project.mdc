@@ -1,4 +1,120 @@
 ---
-description: ''
-alwaysApply: false
+description: 'React project conventions and architecture guidelines'
+alwaysApply: true
 ---
+
+# React Project Rules
+
+## Architecture
+
+The project follows a feature-based structure under `src/`:
+
+- `admin/` - Admin feature module
+  - `layouts/` - Admin-specific layouts (header, sidebar, etc.)
+    - `components/` - Layout-specific components (header, footer, etc.)
+  - `pages/` - Admin page components
+    - `components/` - Page-specific components
+  - `components/` - Feature-level reusable components
+- `login/` - Login feature module
+  - `layouts/` - Login-specific layouts
+    - `components/` - Layout-specific components (e.g., header)
+  - `components/` - Login-specific components (e.g., Login.tsx)
+- `ui/` - Shared UI components library
+  - `components/` - Reusable components (button, input, label, toast, etc.)
+    - Each component follows a consistent structure:
+      - `ComponentName.tsx` - Main component file
+      - `constants/component-name.constants.ts` - Style constants and configuration
+      - `types/component-name.types.ts` - TypeScript type definitions
+
+## Component Conventions
+
+- Use TypeScript for all components
+- Use function components with hooks (no class components)
+- **Use arrow function syntax for all components**: `const ComponentName = () => { ... }`
+- Name files with `.tsx` extension
+- Use PascalCase for component names and files (e.g., `Button.tsx`, `LoginLayout.tsx`)
+- Export components as default exports
+- Export types as named exports (e.g., `export type { ButtonProps }`)
+
+## Props and Types
+
+- Always type component props with TypeScript interfaces or inline types
+- For layout components that wrap content, accept `children` prop typed as `React.ReactNode`
+- Example:
+  ```tsx
+  const Layout = ({ children }: { children: React.ReactNode }) => {
+    return <div>{children}</div>;
+  };
+  ```
+
+## File Organization
+
+- Keep feature-specific components within their feature folders (`admin/`, `login/`)
+- Place truly reusable UI components in `ui/components/`
+- Layout-specific components go in `layouts/components/` within each feature
+- Co-locate page-specific components in `pages/components/` subdirectories when needed
+- Layouts live in `layouts/` within each feature
+
+## Imports
+
+- Prefer named imports from React when needed: `import { useState, useEffect } from 'react'`
+- Use relative imports for local components with `.tsx` extension
+- Group imports: React/external libraries first, then local imports
+- Example:
+  ```tsx
+  import LoginLayout from "../layouts/LoginLayout.tsx";
+  import Input from "../../ui/components/input/Input.tsx";
+  ```
+
+## Styling
+
+The project uses Tailwind CSS v4+ with custom design tokens:
+
+- **Tailwind CSS**: Utility-first styling via `@tailwindcss/vite` plugin
+- **Custom colors**: Define in `main.css` using `@theme` directive
+  - Available custom colors: `primary`, `secondary`, `accent`
+  - Usage: `bg-primary`, `text-secondary`, `border-accent`
+  - Supports opacity modifiers: `bg-primary/50`, `text-accent/80`
+- **Container pattern**: Use `mx-auto w-full max-w-[1280px]` for centered 1280px containers
+- **Cursor styling**: Add `cursor-pointer` to interactive elements
+
+## UI Component Library
+
+The project uses Base UI (unstyled primitives) styled with Tailwind CSS:
+
+- **Base UI**: Provides accessible, unstyled components (`@base-ui/react`)
+- **Component pattern**: Wrap Base UI primitives with Tailwind styles in `ui/components/`
+
+### Available UI Components
+
+- **Input**: Text input with validation states (`data-invalid`, `data-focused`, etc.)
+  - Accepts standard HTML input props (type, placeholder, id, etc.)
+- **Button**: Five variants (primary, secondary, outline, ghost, destructive)
+  - Usage: `<Button variant="outline">Submit</Button>`
+  - Includes cursor-pointer styling
+- **Label**: Form labels with consistent styling
+  - Usage: `<Label htmlFor="email">Email</Label>`
+  - Supports dark mode
+- **Toast**: Notification system with Provider, Root, Title, Description, Close, Action parts
+
+### Creating new UI components
+
+1. Create folder: `src/ui/components/component-name/`
+2. Add `ComponentName.tsx` wrapping Base UI primitive (if applicable)
+3. Add `constants/component-name.constants.ts` with Tailwind class strings
+   - Export `baseClassName` with all Tailwind utility classes
+   - Include states: hover, focus, disabled, dark mode, etc.
+4. Add `types/component-name.types.ts` re-exporting/extending Base UI types or React HTML attributes
+5. Export default component and types from main file
+6. Component should accept `className` prop for additional styling and merge with base classes
+
+### Form Field Pattern
+
+When creating form fields with labels:
+
+```tsx
+<div className="flex flex-col gap-2">
+  <Label htmlFor="fieldId">Field Label</Label>
+  <Input id="fieldId" type="text" placeholder="Enter value" />
+</div>
+```
