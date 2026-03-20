@@ -20,7 +20,7 @@ const Login = () => {
             placeholder="Enter your password"
           />
         </div>
-        <Button variant={"outline"}>Submit</Button>
+        <Button>Submit</Button>
       </div>
     </LoginLayout>
   );
