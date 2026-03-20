@@ -1,8 +1,5 @@
 import { Button as BaseButton } from "@base-ui/react/button";
-import {
-  baseClassName,
-  variantClassNames,
-} from "./constants/button.constants";
+import { baseClassName, variantClassNames } from "./constants/button.constants";
 import type { ButtonProps } from "./types/button.types";
 
 const Button = ({ className, variant = "primary", ...props }: ButtonProps) => {
