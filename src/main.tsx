@@ -1,10 +1,20 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes } from "react-router-dom";
 import "./main.css";
-import Login from "./login/components/Login.tsx";
+import { loginRoutes } from "@login/LoginRoutes.tsx";
+import { adminRoutes } from "@admin/AdminRoutes.tsx";
+import { AuthProvider } from "@contexts/AuthContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Login />
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          {loginRoutes}
+          {adminRoutes}
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

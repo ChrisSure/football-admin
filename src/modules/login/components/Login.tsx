@@ -1,9 +1,19 @@
 import LoginLayout from "../layouts/LoginLayout.tsx";
-import Input from "../../ui/components/input/Input.tsx";
-import Button from "../../ui/components/button/Button.tsx";
-import Label from "../../ui/components/label/Label.tsx";
+import Input from "@ui/components/input/Input.tsx";
+import Button from "@ui/components/button/Button.tsx";
+import Label from "@ui/components/label/Label.tsx";
+import { useAuth } from "@contexts/AuthContext.tsx";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    login();
+    navigate("/admin");
+  };
+
   return (
     <LoginLayout>
       <div className="flex flex-col gap-5">
@@ -20,7 +30,7 @@ const Login = () => {
             placeholder="Enter your password"
           />
         </div>
-        <Button>Submit</Button>
+        <Button onClick={handleSubmit}>Submit</Button>
       </div>
     </LoginLayout>
   );
