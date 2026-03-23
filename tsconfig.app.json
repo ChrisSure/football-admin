@@ -22,8 +22,7 @@
       "@ui/*": ["src/ui/*"],
       "@admin/*": ["src/modules/admin/*"],
       "@login/*": ["src/modules/login/*"],
-      "@contexts/*": ["src/contexts/*"],
-      "@components/*": ["src/components/*"]
+      "@auth/*": ["src/modules/auth/*"]
     },
 
     /* Linting */

@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import ProtectedRoute from "@components/ProtectedRoute.tsx";
+import AdminGuard from "@auth/guards/AdminGuard.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 
 export const adminRoutes = (
@@ -7,9 +7,9 @@ export const adminRoutes = (
     key="admin"
     path="/admin"
     element={
-      <ProtectedRoute>
+      <AdminGuard>
         <Dashboard />
-      </ProtectedRoute>
+      </AdminGuard>
     }
   />
 );
