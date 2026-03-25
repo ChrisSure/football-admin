@@ -1,73 +1,67 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Architecture
 
-Currently, two official plugins are available:
+The project follows a modular structure under `src/`:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Core (`core/`)
 
-## React Compiler
+Global core functionality used across the entire application:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `auth/` - Authentication and authorization logic
+- Other app-wide utilities and configurations
 
-## Expanding the ESLint configuration
+### Modules (`modules/`)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Logical feature modules, each containing:
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+- `admin/` - Admin feature module
+  - `layouts/` - Admin-specific layouts
+  - `pages/` - Admin page components
+- `login/` - Login feature module
+  - `layouts/` - Login-specific layouts
+  - `pages/` - Login page components
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Module Structure:**
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+- Each module may contain its own `layouts/` and `pages/` directories
+- Layouts may have a `components/` subfolder for layout-specific components (header, footer, sidebar, etc.)
+- Pages contain different page components
+
+### UI (`ui/`)
+
+Shared UI components library:
+
+- `components/` - Reusable components (button, input, label, toast, etc.)
+
+### Component Structure
+
+Each unit (component, layout, page, etc.) may contain the following subfolders:
+
+```
+component-name/
+  ├── ComponentName.tsx       # Main component file
+  ├── constants/             # Constants and configuration values
+  │   └── component-name.constants.ts
+  ├── enums/                 # Enumeration types
+  │   └── component-name.enums.ts
+  ├── types/                 # TypeScript type definitions
+  │   └── component-name.types.ts
+  └── components/            # Sub-components specific to this unit
+      └── SubComponent.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Example:**
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+ui/components/button/
+  ├── Button.tsx
+  ├── constants/
+  │   └── button.constants.ts
+  ├── enums/
+  │   └── button.enums.ts
+  ├── types/
+  │   └── button.types.ts
+  └── components/
+      └── ButtonIcon.tsx
 ```

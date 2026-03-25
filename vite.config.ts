@@ -11,9 +11,7 @@ export default defineConfig({
       "@ui": path.resolve(__dirname, "./src/ui"),
       "@admin": path.resolve(__dirname, "./src/modules/admin"),
       "@login": path.resolve(__dirname, "./src/modules/login"),
-      "@auth": path.resolve(__dirname, "./src/modules/auth"),
-      "@contexts": path.resolve(__dirname, "./src/contexts"),
-      "@components": path.resolve(__dirname, "./src/components"),
+      "@auth": path.resolve(__dirname, "./src/core/auth"),
     },
   },
 });

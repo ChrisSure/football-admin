@@ -7,24 +7,43 @@ alwaysApply: true
 
 ## Architecture
 
-The project follows a feature-based structure under `src/`:
+The project follows a modular structure under `src/`:
 
-- `admin/` - Admin feature module
-  - `layouts/` - Admin-specific layouts (header, sidebar, etc.)
-    - `components/` - Layout-specific components (header, footer, etc.)
-  - `pages/` - Admin page components
-    - `components/` - Page-specific components
-  - `components/` - Feature-level reusable components
-- `login/` - Login feature module
-  - `layouts/` - Login-specific layouts
-    - `components/` - Layout-specific components (e.g., header)
-  - `components/` - Login-specific components (e.g., Login.tsx)
+- `core/` - Global core functionality used across the entire app
+  - `auth/` - Authentication and authorization logic
+  - Other app-wide utilities and configurations
+- `modules/` - Logical feature modules
+  - `admin/` - Admin feature module
+    - `layouts/` - Admin-specific layouts (with header, footer, sidebar, etc.)
+    - `pages/` - Admin page components
+  - `login/` - Login feature module
+    - `layouts/` - Login-specific layouts
+    - `pages/` - Login page components
 - `ui/` - Shared UI components library
   - `components/` - Reusable components (button, input, label, toast, etc.)
-    - Each component follows a consistent structure:
-      - `ComponentName.tsx` - Main component file
-      - `constants/component-name.constants.ts` - Style constants and configuration
-      - `types/component-name.types.ts` - TypeScript type definitions
+
+### Component Structure
+
+Each unit (component, layout, page, etc.) may contain the following folders:
+
+- `constants/` - Constants and configuration values
+- `enums/` - Enumeration types
+- `components/` - Sub-components specific to this unit
+- `types/` - TypeScript type definitions
+
+Example component structure:
+```
+ui/components/button/
+  ├── Button.tsx
+  ├── constants/
+  │   └── button.constants.ts
+  ├── enums/
+  │   └── button.enums.ts
+  ├── types/
+  │   └── button.types.ts
+  └── components/
+      └── ButtonIcon.tsx
+```
 
 ## Component Conventions
 
@@ -49,11 +68,13 @@ The project follows a feature-based structure under `src/`:
 
 ## File Organization
 
-- Keep feature-specific components within their feature folders (`admin/`, `login/`)
+- Place global, app-wide functionality in `core/` (e.g., authentication, routing, API clients)
+- Keep feature-specific modules in `modules/` (e.g., `modules/admin/`, `modules/login/`)
+- Each module contains its own `layouts/` and `pages/` directories
+- Layouts may have their own `components/` subfolder for layout-specific components (header, footer, sidebar)
+- Pages may have their own `components/` subfolder for page-specific components
 - Place truly reusable UI components in `ui/components/`
-- Layout-specific components go in `layouts/components/` within each feature
-- Co-locate page-specific components in `pages/components/` subdirectories when needed
-- Layouts live in `layouts/` within each feature
+- Each component unit can contain: `constants/`, `enums/`, `components/`, and `types/` subfolders as needed
 
 ## Imports
 
@@ -62,8 +83,10 @@ The project follows a feature-based structure under `src/`:
 - Group imports: React/external libraries first, then local imports
 - Example:
   ```tsx
-  import LoginLayout from "../layouts/LoginLayout.tsx";
-  import Input from "../../ui/components/input/Input.tsx";
+  import { useState } from "react";
+  import AuthGuard from "../../../core/auth/guards/AuthGuard.tsx";
+  import AdminLayout from "../layouts/AdminLayout.tsx";
+  import Button from "../../../ui/components/button/Button.tsx";
   ```
 
 ## Styling
@@ -101,12 +124,13 @@ The project uses Base UI (unstyled primitives) styled with Tailwind CSS:
 
 1. Create folder: `src/ui/components/component-name/`
 2. Add `ComponentName.tsx` wrapping Base UI primitive (if applicable)
-3. Add `constants/component-name.constants.ts` with Tailwind class strings
-   - Export `baseClassName` with all Tailwind utility classes
-   - Include states: hover, focus, disabled, dark mode, etc.
-4. Add `types/component-name.types.ts` re-exporting/extending Base UI types or React HTML attributes
-5. Export default component and types from main file
-6. Component should accept `className` prop for additional styling and merge with base classes
+3. Optionally add subfolders as needed:
+   - `constants/component-name.constants.ts` - Style constants and configuration (export `baseClassName` with Tailwind classes)
+   - `types/component-name.types.ts` - TypeScript type definitions (re-export/extend Base UI types or React HTML attributes)
+   - `enums/component-name.enums.ts` - Enumeration types (e.g., variants, sizes)
+   - `components/` - Sub-components if needed
+4. Export default component and types from main file
+5. Component should accept `className` prop for additional styling and merge with base classes
 
 ### Form Field Pattern
 
