@@ -1,6 +1,6 @@
 import AdminLayout from "../../layouts/AdminLayout.tsx";
 import Button from "@ui/components/button/Button.tsx";
-import { useAuth } from "@auth/contexts/AuthContext.tsx";
+import { useAuth } from "@auth/hooks/useAuth.ts";
 import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {

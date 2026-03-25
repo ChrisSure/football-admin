@@ -2,7 +2,7 @@ import LoginLayout from "../../layouts/LoginLayout.tsx";
 import Input from "@ui/components/input/Input.tsx";
 import Button from "@ui/components/button/Button.tsx";
 import Label from "@ui/components/label/Label.tsx";
-import { useAuth } from "@auth/contexts/AuthContext.tsx";
+import { useAuth } from "@auth/hooks/useAuth.ts";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
