@@ -11,6 +11,7 @@ The project follows a modular structure under `src/`:
 
 - `core/` - Global core functionality used across the entire app
   - `auth/` - Authentication and authorization logic
+  - `form/` - Abstract form components and utilities
   - Other app-wide utilities and configurations
 - `modules/` - Logical feature modules
   - `admin/` - Admin feature module
@@ -29,6 +30,8 @@ Each unit (component, layout, page, etc.) may contain the following folders:
 - `constants/` - Constants and configuration values
 - `enums/` - Enumeration types
 - `components/` - Sub-components specific to this unit
+- `forms/` - Form components specific to this unit (for pages only)
+  - Each form may contain `schemas/`, `types/`, and `constants/` subfolders
 - `types/` - TypeScript type definitions
 
 Example component structure:
@@ -43,6 +46,21 @@ ui/components/button/
   │   └── button.types.ts
   └── components/
       └── ButtonIcon.tsx
+```
+
+Example page with forms:
+```
+pages/login/
+  ├── Login.tsx
+  └── forms/
+      └── login-form/
+          ├── LoginForm.tsx
+          ├── schemas/
+          │   └── login-form.schema.ts
+          ├── types/
+          │   └── login-form.types.ts
+          └── constants/
+              └── login-form.constants.ts
 ```
 
 ## Component Conventions
@@ -68,12 +86,15 @@ ui/components/button/
 
 ## File Organization
 
-- Place global, app-wide functionality in `core/` (e.g., authentication, routing, API clients)
+- Place global, app-wide functionality in `core/` (e.g., authentication, routing, API clients, abstract form components)
 - Keep feature-specific modules in `modules/` (e.g., `modules/admin/`, `modules/login/`)
 - Each module contains its own `layouts/` and `pages/` directories
 - Layouts may have their own `components/` subfolder for layout-specific components (header, footer, sidebar)
-- Pages may have their own `components/` subfolder for page-specific components
+- Pages may have their own `forms/` subfolder for page-specific form components
+  - Each form can contain its own `schemas/`, `types/`, and `constants/` subfolders
+- Pages may also have a `components/` subfolder for other page-specific components
 - Place truly reusable UI components in `ui/components/`
+- Place abstract form components and utilities in `core/form/`
 - Each component unit can contain: `constants/`, `enums/`, `components/`, and `types/` subfolders as needed
 
 ## Imports
