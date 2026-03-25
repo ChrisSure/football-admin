@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import AdminGuard from "@auth/guards/AdminGuard.tsx";
+import AdminGuard from "@core/auth/guards/AdminGuard.tsx";
 import Dashboard from "./pages/dashboard/Dashboard.tsx";
 
 export const adminRoutes = (

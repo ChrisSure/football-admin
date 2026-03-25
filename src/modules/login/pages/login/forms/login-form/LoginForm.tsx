@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "@ui/components/button/Button.tsx";
-import FormField from "@form/components/form-field/FormField.tsx";
+import FormField from "@core/form/components/form-field/FormField.tsx";
 import { loginFormSchema } from "@login/pages/login/forms/login-form/schemas/login-form.schema.ts";
 import type {
   LoginFormData,
