@@ -16,6 +16,15 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Path Aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@ui/*": ["src/ui/*"],
+      "@admin/*": ["src/modules/admin/*"],
+      "@login/*": ["src/modules/login/*"],
+      "@auth/*": ["src/core/auth/*"]
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
