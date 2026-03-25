@@ -12,6 +12,7 @@ export default defineConfig({
       "@admin": path.resolve(__dirname, "./src/modules/admin"),
       "@login": path.resolve(__dirname, "./src/modules/login"),
       "@auth": path.resolve(__dirname, "./src/core/auth"),
+      "@form": path.resolve(__dirname, "./src/core/form"),
     },
   },
 });
