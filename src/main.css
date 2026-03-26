@@ -54,4 +54,17 @@ body {
     line-height: 1.5;
     color: var(--color-gray);
   }
+
+  @keyframes loading-slide {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-loading-slide {
+    animation: loading-slide 1.5s ease-in-out infinite;
+  }
 }

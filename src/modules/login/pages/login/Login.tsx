@@ -10,7 +10,7 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const { mutate, isPending } = useLoginMutation();
+  const { mutate } = useLoginMutation();
 
   const handleSubmit = (data: LoginFormData) => {
     mutate(data, {
@@ -29,7 +29,6 @@ const Login = () => {
   return (
     <LoginLayout>
       <LoginForm onSubmit={handleSubmit} />
-      {isPending && <p>Logging in...</p>}
     </LoginLayout>
   );
 };

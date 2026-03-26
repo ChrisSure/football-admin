@@ -8,6 +8,7 @@ import { loginRoutes } from "@login/LoginRoutes.tsx";
 import { adminRoutes } from "@admin/AdminRoutes.tsx";
 import { AuthProvider } from "@core/auth/providers/AuthProvider.tsx";
 import { ToastProvider } from "@core/toast/ToastProvider.tsx";
+import { LoadingProvider } from "@core/loading/LoadingProvider.tsx";
 
 const queryClient = new QueryClient();
 
@@ -16,12 +17,14 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <ToastProvider>
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <Routes>
-              {loginRoutes}
-              {adminRoutes}
-            </Routes>
-          </AuthProvider>
+          <LoadingProvider>
+            <AuthProvider>
+              <Routes>
+                {loginRoutes}
+                {adminRoutes}
+              </Routes>
+            </AuthProvider>
+          </LoadingProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </ToastProvider>
