@@ -7,21 +7,24 @@ import "./main.css";
 import { loginRoutes } from "@login/LoginRoutes.tsx";
 import { adminRoutes } from "@admin/AdminRoutes.tsx";
 import { AuthProvider } from "@core/auth/providers/AuthProvider.tsx";
+import { ToastProvider } from "@core/toast/ToastProvider.tsx";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <Routes>
-            {loginRoutes}
-            {adminRoutes}
-          </Routes>
-        </AuthProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <ToastProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <Routes>
+              {loginRoutes}
+              {adminRoutes}
+            </Routes>
+          </AuthProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ToastProvider>
     </BrowserRouter>
   </StrictMode>,
 );
