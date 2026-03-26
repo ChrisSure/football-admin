@@ -1,5 +1,5 @@
 import { useIsMutating, useIsFetching } from "@tanstack/react-query";
-import LoadingBar from "@ui/components/loading/Loading.tsx";
+import LoadingBar from "@ui/loading/Loading.tsx";
 
 export const LoadingProvider = ({
   children,

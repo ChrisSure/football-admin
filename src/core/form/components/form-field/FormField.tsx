@@ -1,6 +1,6 @@
 import type { FieldValues } from "react-hook-form";
-import Input from "@ui/components/input/Input.tsx";
-import Label from "@ui/components/label/Label.tsx";
+import Input from "@ui/input/Input.tsx";
+import Label from "@ui/label/Label.tsx";
 import {
   containerClassName,
   errorMessageClassName,

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Toast from "@ui/components/toast/Toast.tsx";
+import Toast from "@ui/toast/Toast.tsx";
 
 const ToastViewportList = () => {
   const { toasts } = Toast.useToastManager();

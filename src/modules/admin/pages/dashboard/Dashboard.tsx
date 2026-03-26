@@ -1,5 +1,5 @@
 import AdminLayout from "../../layouts/AdminLayout.tsx";
-import Button from "@ui/components/button/Button.tsx";
+import Button from "@ui/button/Button.tsx";
 import { useAuth } from "@core/auth/hooks/useAuth.ts";
 import { useNavigate } from "react-router-dom";
 

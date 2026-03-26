@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import Toast from "@ui/components/toast/Toast.tsx";
+import Toast from "@ui/toast/Toast.tsx";
 import type { ShowToastOptions } from "../types/use-toast.types.ts";
 
 export const useToast = () => {

@@ -1,5 +1,5 @@
-import { baseClassName } from "./constants/label.constants";
-import type { LabelProps } from "./types/label.types";
+import { baseClassName } from "./constants/label.constants.ts";
+import type { LabelProps } from "./types/label.types.ts";
 
 const Label = ({ className, children, ...props }: LabelProps) => {
   return (
@@ -13,4 +13,4 @@ const Label = ({ className, children, ...props }: LabelProps) => {
 };
 
 export default Label;
-export type { LabelProps } from "./types/label.types";
+export type { LabelProps } from "./types/label.types.ts";

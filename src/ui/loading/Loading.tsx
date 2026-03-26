@@ -1,5 +1,5 @@
-import { baseClassName, barClassName } from "./constants/loading.constants";
-import type { LoadingBarProps } from "./types/loading.types";
+import { baseClassName, barClassName } from "./constants/loading.constants.ts";
+import type { LoadingBarProps } from "./types/loading.types.ts";
 
 const LoadingBar = ({ className }: LoadingBarProps = {}) => {
   const combinedClassName = className

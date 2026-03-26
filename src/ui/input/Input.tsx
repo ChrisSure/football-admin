@@ -1,6 +1,6 @@
 import { Input as BaseInput } from "@base-ui/react/input";
-import { baseClassName } from "./constants/input.constants";
-import type { InputProps } from "./types/input.types";
+import { baseClassName } from "./constants/input.constants.ts";
+import type { InputProps } from "./types/input.types.ts";
 
 const Input = ({ className, ...props }: InputProps) => {
   return (
@@ -12,4 +12,4 @@ const Input = ({ className, ...props }: InputProps) => {
 };
 
 export default Input;
-export type { InputProps } from "./types/input.types";
+export type { InputProps } from "./types/input.types.ts";
