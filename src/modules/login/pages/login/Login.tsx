@@ -10,13 +10,18 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const { mutate } = useLoginMutation();
+  const { mutate, isPending } = useLoginMutation();
 
   const handleSubmit = (data: LoginFormData) => {
+    if (isPending) return;
+
     mutate(data, {
-      onSuccess: () => {
-        login();
-        navigate("/admin");
+      onSuccess: (response) => {
+        const token = response.accessToken || (response as any).access_token || (response as any).token;
+        if (token) {
+          login(token);
+          navigate("/admin", { replace: true });
+        }
       },
       onError: (err) => {
         const message =
