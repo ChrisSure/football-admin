@@ -1,10 +1,6 @@
 import { useState, useCallback } from "react";
 import { AuthContext } from "@core/auth";
-import {
-  saveToken,
-  clearToken,
-  isTokenValid,
-} from "../utils/token.utils.ts";
+import { saveToken, clearToken, isTokenValid } from "../utils/token.utils.ts";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {

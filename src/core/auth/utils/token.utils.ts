@@ -1,6 +1,6 @@
-import {jwtDecode} from "jwt-decode";
-import {TOKEN_EXPIRY_KEY, TOKEN_KEY} from "../constants/auth.constants.ts";
-import type {JWTPayload} from "../types/auth.types.ts";
+import { jwtDecode } from "jwt-decode";
+import { TOKEN_EXPIRY_KEY, TOKEN_KEY } from "../constants/auth.constants.ts";
+import type { JWTPayload } from "../types/auth.types.ts";
 
 export const saveToken = (token: string): void => {
   const decoded = jwtDecode<JWTPayload>(token);
