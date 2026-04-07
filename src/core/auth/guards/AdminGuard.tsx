@@ -1,10 +1,10 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.ts";
+import { isTokenValid } from "../utils/token.utils.ts";
 
 const AdminGuard = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated } = useAuth();
+  const tokenValid = isTokenValid();
 
-  if (!isAuthenticated) {
+  if (!tokenValid) {
     return <Navigate to="/" replace />;
   }
 

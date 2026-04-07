@@ -32,6 +32,8 @@ Each unit (component, layout, page, etc.) may contain the following folders:
 - `components/` - Sub-components specific to this unit
 - `forms/` - Form components specific to this unit (for pages only)
   - Each form may contain `schemas/`, `types/`, and `constants/` subfolders
+- `api/` - API layer specific to this unit (for pages only)
+  - `mutations/` - Mutation functions for data modifications
 - `types/` - TypeScript type definitions
 
 Example component structure:
@@ -48,19 +50,22 @@ ui/components/button/
       └── ButtonIcon.tsx
 ```
 
-Example page with forms:
+Example page with forms and API:
 ```
 pages/login/
   ├── Login.tsx
-  └── forms/
-      └── login-form/
-          ├── LoginForm.tsx
-          ├── schemas/
-          │   └── login-form.schema.ts
-          ├── types/
-          │   └── login-form.types.ts
-          └── constants/
-              └── login-form.constants.ts
+  ├── forms/
+  │   └── login-form/
+  │       ├── LoginForm.tsx
+  │       ├── schemas/
+  │       │   └── login-form.schema.ts
+  │       ├── types/
+  │       │   └── login-form.types.ts
+  │       └── constants/
+  │           └── login-form.constants.ts
+  └── api/
+      └── mutations/
+          └── login.mutation.ts
 ```
 
 ## Component Conventions
@@ -92,10 +97,12 @@ pages/login/
 - Layouts may have their own `components/` subfolder for layout-specific components (header, footer, sidebar)
 - Pages may have their own `forms/` subfolder for page-specific form components
   - Each form can contain its own `schemas/`, `types/`, and `constants/` subfolders
+- Pages may have their own `api/` subfolder for page-specific API logic
+  - `api/mutations/` contains mutation functions for data modifications
 - Pages may also have a `components/` subfolder for other page-specific components
 - Place truly reusable UI components in `ui/components/`
 - Place abstract form components and utilities in `core/form/`
-- Each component unit can contain: `constants/`, `enums/`, `components/`, and `types/` subfolders as needed
+- Each component unit can contain: `constants/`, `enums/`, `components/`, `types/`, and (for pages) `forms/` and `api/` subfolders as needed
 
 ## Imports
 

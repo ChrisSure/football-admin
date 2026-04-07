@@ -1,4 +1,7 @@
-import { ButtonVariant, type ButtonVariantType } from "../enums/button.enums";
+import {
+  ButtonVariant,
+  type ButtonVariantType,
+} from "../enums/button.enums.ts";
 
 export const baseClassName =
   "inline-flex items-center justify-center rounded-md px-4 py-2 text-lg font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 data-disabled:cursor-not-allowed data-disabled:opacity-50";

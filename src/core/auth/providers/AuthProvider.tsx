@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react";
-import { AuthContext } from "../contexts/AuthContext.ts";
+import { useState, useCallback } from "react";
+import { AuthContext } from "@core/auth";
+import { saveToken, clearToken, isTokenValid } from "../utils/token.utils.ts";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    const stored = localStorage.getItem("isAuthenticated");
-    return stored === "true";
+    return isTokenValid();
   });
 
-  useEffect(() => {
-    localStorage.setItem("isAuthenticated", String(isAuthenticated));
-  }, [isAuthenticated]);
+  const login = useCallback((token?: string) => {
+    if (token) {
+      saveToken(token);
+      setIsAuthenticated(true);
+    }
+  }, []);
 
-  const login = () => {
-    setIsAuthenticated(true);
-  };
-
-  const logout = () => {
+  const logout = useCallback(() => {
+    clearToken();
     setIsAuthenticated(false);
-  };
+  }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>

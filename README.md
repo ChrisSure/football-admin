@@ -29,6 +29,8 @@ Logical feature modules, each containing:
 - Layouts may have a `components/` subfolder for layout-specific components (header, footer, sidebar, etc.)
 - Pages may have a `forms/` subfolder for page-specific form components
   - Each form can contain its own `schemas/`, `types/`, and `constants/` subfolders
+- Pages may have an `api/` subfolder for page-specific API logic
+  - `api/mutations/` contains mutation functions for data modifications
 - Pages may also have a `components/` subfolder for other page-specific components
 
 ### UI (`ui/`)
@@ -52,6 +54,9 @@ component-name/
   │   └── component-name.types.ts
   ├── components/            # Sub-components specific to this unit
   │   └── SubComponent.tsx
+  ├── api/                   # API layer (for pages only)
+  │   └── mutations/         # Mutation functions
+  │       └── page-name.mutation.ts
   └── forms/                 # Form components (for pages only)
       └── form-name/
           ├── FormName.tsx
@@ -78,18 +83,21 @@ ui/components/button/
       └── ButtonIcon.tsx
 ```
 
-**Example Page with Forms:**
+**Example Page with Forms and API:**
 
 ```
 modules/login/pages/login/
   ├── Login.tsx
-  └── forms/
-      └── login-form/
-          ├── LoginForm.tsx
-          ├── schemas/
-          │   └── login-form.schema.ts
-          ├── types/
-          │   └── login-form.types.ts
-          └── constants/
-              └── login-form.constants.ts
+  ├── forms/
+  │   └── login-form/
+  │       ├── LoginForm.tsx
+  │       ├── schemas/
+  │       │   └── login-form.schema.ts
+  │       ├── types/
+  │       │   └── login-form.types.ts
+  │       └── constants/
+  │           └── login-form.constants.ts
+  └── api/
+      └── mutations/
+          └── login.mutation.ts
 ```

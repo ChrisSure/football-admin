@@ -1,7 +1,10 @@
 import { Button as BaseButton } from "@base-ui/react/button";
-import { baseClassName, variantClassNames } from "./constants/button.constants";
-import type { ButtonProps } from "./types/button.types";
-import { ButtonVariant } from "./enums/button.enums";
+import {
+  baseClassName,
+  variantClassNames,
+} from "./constants/button.constants.ts";
+import type { ButtonProps } from "./types/button.types.ts";
+import { ButtonVariant } from "./enums/button.enums.ts";
 
 const Button = ({
   className,
@@ -17,5 +20,5 @@ const Button = ({
 };
 
 export default Button;
-export type { ButtonProps } from "./types/button.types";
-export { ButtonVariant } from "./enums/button.enums";
+export type { ButtonProps } from "./types/button.types.ts";
+export { ButtonVariant } from "./enums/button.enums.ts";

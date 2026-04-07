@@ -6,7 +6,7 @@ import {
   toastCloseClassName,
   toastActionClassName,
   toastViewportClassName,
-} from "./constants/toast.constants";
+} from "./constants/toast.constants.ts";
 
 const Toast = {
   Provider: BaseToast.Provider,
@@ -37,4 +37,4 @@ const Toast = {
 };
 
 export default Toast;
-export type { ToastProviderProps } from "./types/toast.types";
+export type { ToastProviderProps } from "./types/toast.types.ts";
