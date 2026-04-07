@@ -1,5 +1,7 @@
 export type LoginResponse = {
-  accessToken: string;
+  accessToken?: string;
+  access_token?: string;
+  token?: string;
 };
 
 export type JWTPayload = {

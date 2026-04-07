@@ -18,9 +18,7 @@ const Login = () => {
     mutate(data, {
       onSuccess: (response) => {
         const token =
-          response.accessToken ||
-          (response as any).access_token ||
-          (response as any).token;
+          response.accessToken ?? response.access_token ?? response.token;
         if (token) {
           login(token);
           navigate("/admin", { replace: true });
