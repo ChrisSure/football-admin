@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { TOKEN_EXPIRY_KEY, TOKEN_KEY } from "../constants/auth.constants.ts";
 import type { JWTPayload } from "../types/auth.types.ts";
+import type { User, UserJWTPayload } from "../types/user.types.ts";
 
 export const saveToken = (token: string): void => {
   const decoded = jwtDecode<JWTPayload>(token);
@@ -33,4 +34,22 @@ export const isTokenValid = (): boolean => {
 
   const now = Date.now();
   return now < expiry;
+};
+
+export const getUserFromToken = (): User | null => {
+  const token = getToken();
+
+  if (!token || !isTokenValid()) {
+    return null;
+  }
+
+  try {
+    const decoded = jwtDecode<UserJWTPayload>(token);
+    return {
+      id: decoded.userId,
+      username: decoded.username,
+    };
+  } catch {
+    return null;
+  }
 };
