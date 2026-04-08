@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../../layouts/AdminLayout.tsx";
 import ProjectCard from "@ui/project-card/ProjectCard.tsx";
 import { useAuth } from "@core/auth/hooks/useAuth.ts";
@@ -5,7 +6,12 @@ import { useUserProjectsQuery } from "./api/queries/useUserProjectsQuery.ts";
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const { data, isLoading, isError } = useUserProjectsQuery(user?.id || 0);
+
+  const handleProjectClick = (project: { id: number }) => {
+    navigate(`/admin/project/${project.id}`);
+  };
 
   return (
     <AdminLayout>
@@ -27,7 +33,11 @@ const Dashboard = () => {
           data.projects.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  onClick={handleProjectClick}
+                />
               ))}
             </div>
           )}
