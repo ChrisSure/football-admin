@@ -48,6 +48,7 @@ export const getUserFromToken = (): User | null => {
     return {
       id: decoded.userId,
       username: decoded.username,
+      role: decoded.role,
     };
   } catch {
     return null;

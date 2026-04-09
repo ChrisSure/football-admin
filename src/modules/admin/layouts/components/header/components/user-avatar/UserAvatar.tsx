@@ -22,22 +22,12 @@ const UserAvatar = () => {
     console.log("Navigate to profile");
   };
 
-  const handleUsers = () => {
-    console.log("Navigate to users");
-  };
-
-  const handleConsumers = () => {
-    console.log("Navigate to consumers");
-  };
-
   const handleSettings = () => {
     console.log("Navigate to settings");
   };
 
   const items: MenuItem[] = [
     { label: "Profile", onClick: handleProfile },
-    { label: "Users", onClick: handleUsers },
-    { label: "Consumers", onClick: handleConsumers },
     { label: "Settings", onClick: handleSettings },
     { type: "separator" },
     { label: "Log Out", onClick: handleLogout },
