@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type {
   FieldError,
   UseFormRegister,
@@ -10,8 +11,10 @@ export interface FormFieldProps<
 > {
   name: Path<TFieldValues>;
   label: string;
-  type?: string;
+  type?: "text" | "password" | "email" | "number" | "textarea" | "select";
   placeholder?: string;
   register: UseFormRegister<TFieldValues>;
   error?: FieldError;
+  children?: ReactNode; // For select options (legacy)
+  options?: { value: string; label: string }[]; // For new select
 }

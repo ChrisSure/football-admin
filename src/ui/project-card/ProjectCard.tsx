@@ -32,6 +32,10 @@ const ProjectCard = ({ project, onClick, className }: ProjectCardProps) => {
           Status: <span className={statusClass}>{project.status}</span>
         </span>
       </div>
+      <div className={projectCardMetaClassName}>
+        <span>Created: {new Date(project.created).toLocaleDateString()}</span>
+        <span>Updated: {new Date(project.updated).toLocaleDateString()}</span>
+      </div>
     </div>
   );
 };
