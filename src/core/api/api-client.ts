@@ -26,6 +26,15 @@ export const apiClient = async <T>(
     const errorData = await response.json().catch(() => ({}));
     const errorMessage =
       errorData.message || `HTTP error! status: ${response.status}`;
+
+    if (response.status >= 400 && response.status < 600) {
+      window.dispatchEvent(
+        new CustomEvent("api-error", {
+          detail: { message: errorMessage, status: response.status },
+        }),
+      );
+    }
+
     throw new ApiError(errorMessage, response.status, errorData);
   }
 

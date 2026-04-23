@@ -9,6 +9,7 @@ import { useUpdateProjectMutation } from "./api/mutations/useUpdateProjectMutati
 import { useDeleteProjectMutation } from "./api/mutations/useDeleteProjectMutation.ts";
 import { handleProjectClick, handleEditClick } from "./constants/projects.constants.ts";
 import Button from "@ui/button/Button.tsx";
+import NotFound from "@ui/not-found/NotFound.tsx";
 import ProjectModal from "./components/project-modal/ProjectModal.tsx";
 import type { CreateProjectFormData } from "./forms/create-project-form/types/create-project-form.types.ts";
 import { useToast } from "@core/toast/hooks/useToast.ts";
@@ -103,9 +104,7 @@ const Projects = () => {
         </div>
 
         {!isLoading && !isError && data && data.length === 0 && (
-          <div className="flex items-center justify-center py-12">
-            <p className="text-gray-600">No projects found.</p>
-          </div>
+          <NotFound message="No projects found." />
         )}
 
         {!isLoading && !isError && data && data.length > 0 && (
