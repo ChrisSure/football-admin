@@ -7,11 +7,11 @@ import type {
   UpdateUserFormData,
   CreateUserFormProps,
 } from "./types/create-user-form.types.ts";
-import { useProjectsQuery } from "../../../projects/api/queries/useProjectsQuery.ts";
+import { useActiveProjectsQuery } from "../../api/queries/useActiveProjectsQuery.ts";
 import { USER_ROLE_OPTIONS, USER_STATUS_OPTIONS } from "./constants/create-user-form.constants.ts";
 
 const CreateUserForm = ({ id, initialValues, isEditing, onSubmit }: CreateUserFormProps) => {
-  const { data: projects } = useProjectsQuery();
+  const { data: projects } = useActiveProjectsQuery();
   
   const schema = isEditing ? updateUserFormSchema : createUserFormSchema;
 

@@ -16,6 +16,7 @@ const ListCard = ({
   updated,
   onClick,
   onEdit,
+  onChangePassword,
   onDelete,
   className,
 }: ListCardProps) => {
@@ -53,8 +54,33 @@ const ListCard = ({
           <span>Updated: {new Date(updated).toLocaleDateString()}</span>
         )}
       </div>
-      {(onEdit || onDelete) && (
+      {(onEdit || onChangePassword || onDelete) && (
         <div className="flex items-center gap-3 ml-4 pl-4 border-l border-gray-100">
+          {onChangePassword && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onChangePassword(e);
+              }}
+              className="text-gray-400 hover:text-blue-600 transition-colors cursor-pointer"
+              aria-label="Change Password"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </button>
+          )}
           {onEdit && (
             <button
               onClick={(e) => {
