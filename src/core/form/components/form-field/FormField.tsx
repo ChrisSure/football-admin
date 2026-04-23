@@ -2,6 +2,7 @@ import type { FieldValues } from "react-hook-form";
 import Input from "@ui/input/Input.tsx";
 import Textarea from "@ui/textarea/Textarea.tsx";
 import Select from "@ui/select/Select.tsx";
+import MultiSelect from "@ui/multi-select/MultiSelect.tsx";
 import Label from "@ui/label/Label.tsx";
 import {
   containerClassName,
@@ -33,6 +34,15 @@ const FormField = <TFieldValues extends FieldValues = FieldValues>({
         <Select
           id={name}
           options={options}
+          placeholder={placeholder}
+          defaultValue={defaultValue}
+          {...register(name)}
+          {...(error && { "data-invalid": true })}
+        />
+      ) : type === "multi-select" ? (
+        <MultiSelect
+          id={name}
+          options={options || []}
           placeholder={placeholder}
           defaultValue={defaultValue}
           {...register(name)}

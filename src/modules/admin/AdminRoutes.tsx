@@ -4,6 +4,7 @@ import Dashboard from "./pages/dashboard/Dashboard.tsx";
 import Project from "./pages/project/Project.tsx";
 import Projects from "./pages/projects/Projects.tsx";
 import Consumers from "./pages/consumers/Consumers.tsx";
+import Users from "./pages/users/Users.tsx";
 
 export const adminRoutes = [
   <Route
@@ -21,6 +22,15 @@ export const adminRoutes = [
     element={
       <AdminGuard>
         <Projects />
+      </AdminGuard>
+    }
+  />,
+  <Route
+    key="admin-users"
+    path="/admin/users"
+    element={
+      <AdminGuard>
+        <Users />
       </AdminGuard>
     }
   />,

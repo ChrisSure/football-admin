@@ -7,8 +7,8 @@ import {
   listClassName,
   itemClassName,
   itemIndicatorClassName,
-} from "./constants/select.constants.ts";
-import type { SelectProps } from "./types/select.types.ts";
+} from "./constants/multi-select.constants.ts";
+import type { MultiSelectProps } from "./types/multi-select.types.ts";
 
 function ChevronUpDownIcon(props: React.ComponentProps<"svg">) {
   return (
@@ -35,30 +35,47 @@ function CheckIcon(props: React.ComponentProps<"svg">) {
   );
 }
 
-const Select = ({
+const MultiSelect = ({
+  id,
   className,
   options = [],
-  placeholder = "Select an option...",
+  placeholder = "Select options...",
   ref,
   onChange,
   onBlur,
   name,
   "data-invalid": dataInvalid,
+  defaultValue = [],
+  value,
   ...props
-}: SelectProps) => {
+}: MultiSelectProps) => {
   return (
     <BaseSelect.Root
       name={name}
       inputRef={ref}
-      onValueChange={(value) => onChange?.({ target: { name, value: value as string } })}
+      multiple={true}
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={(val) => onChange?.({ target: { name, value: val as string[] } })}
       {...props}
     >
       <BaseSelect.Trigger
+        id={id}
         className={className ? `${baseClassName} ${className}` : baseClassName}
         data-invalid={dataInvalid ? "" : undefined}
         onBlur={onBlur}
       >
-        <BaseSelect.Value placeholder={placeholder} />
+        <BaseSelect.Value placeholder={placeholder}>
+          {(value: string[] | null) => {
+            if (!value || value.length === 0) return placeholder;
+            return value
+              .map((val: string) => {
+                const option = options.find((o) => o.value === val);
+                return option ? option.label : val;
+              })
+              .join(", ");
+          }}
+        </BaseSelect.Value>
         <BaseSelect.Icon>
           <ChevronUpDownIcon />
         </BaseSelect.Icon>
@@ -87,5 +104,5 @@ const Select = ({
   );
 };
 
-export default Select;
-export type { SelectProps } from "./types/select.types.ts";
+export default MultiSelect;
+export type { MultiSelectProps } from "./types/multi-select.types.ts";

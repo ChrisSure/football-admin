@@ -11,6 +11,7 @@ const ListCard = ({
   title,
   description,
   status,
+  role,
   created,
   updated,
   onClick,
@@ -38,6 +39,11 @@ const ListCard = ({
         {status && (
           <span>
             Status: <span className={statusClass}>{status}</span>
+          </span>
+        )}
+        {role && (
+          <span>
+            Role: <span className="font-medium text-gray-700 capitalize">{role}</span>
           </span>
         )}
         {created && (

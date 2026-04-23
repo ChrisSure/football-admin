@@ -10,6 +10,7 @@ export type Project = {
 export type User = {
   id: number;
   name: string;
+  role: string;
   status: string;
   created: string;
   updated: string;
