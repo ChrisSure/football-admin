@@ -6,6 +6,7 @@ import ListCard from "@ui/list-card/ListCard.tsx";
 import { useProjectsQuery } from "./api/queries/useProjectsQuery.ts";
 import { useCreateProjectMutation } from "./api/mutations/useCreateProjectMutation.ts";
 import { useUpdateProjectMutation } from "./api/mutations/useUpdateProjectMutation.ts";
+import { useDeleteProjectMutation } from "./api/mutations/useDeleteProjectMutation.ts";
 import { handleProjectClick, handleEditClick } from "./constants/projects.constants.ts";
 import Button from "@ui/button/Button.tsx";
 import ProjectModal from "./components/project-modal/ProjectModal.tsx";
@@ -20,6 +21,7 @@ const Projects = () => {
   const { data, isLoading, isError } = useProjectsQuery();
   const { mutate: createProject } = useCreateProjectMutation();
   const { mutate: updateProject } = useUpdateProjectMutation();
+  const { mutate: deleteProject } = useDeleteProjectMutation();
   const { showToast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -75,6 +77,20 @@ const Projects = () => {
     }
   };
 
+  const handleDeleteProject = (e: React.MouseEvent, project: Project) => {
+    e.stopPropagation();
+    
+    deleteProject(project.id, {
+      onSuccess: (response) => {
+        showToast({ text: response.message || "Project deleted successfully", type: "success" });
+        queryClient.invalidateQueries({ queryKey: ["projects"] });
+      },
+      onError: (error) => {
+        showToast({ text: error.message || "An error occurred", type: "error" });
+      },
+    });
+  };
+
   return (
     <AdminLayout>
       <div className="flex flex-col gap-6">
@@ -104,6 +120,7 @@ const Projects = () => {
                 updated={project.updated}
                 onClick={() => handleProjectClick(project, navigate)}
                 onEdit={(e) => handleEditClick(e, project, setEditingProject, setIsModalOpen)}
+                onDelete={(e) => handleDeleteProject(e, project)}
               />
             ))}
           </div>
