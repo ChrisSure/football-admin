@@ -5,5 +5,6 @@ export interface ListCardProps {
   created?: string | Date;
   updated?: string | Date;
   onClick?: () => void;
+  onEdit?: (e: React.MouseEvent) => void;
   className?: string;
 }

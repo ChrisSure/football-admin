@@ -17,6 +17,7 @@ const FormField = <TFieldValues extends FieldValues = FieldValues>({
   register,
   error,
   options,
+  defaultValue,
 }: FormFieldProps<TFieldValues>) => {
   return (
     <div className={containerClassName}>
@@ -33,6 +34,7 @@ const FormField = <TFieldValues extends FieldValues = FieldValues>({
           id={name}
           options={options}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           {...register(name)}
           {...(error && { "data-invalid": true })}
         />

@@ -7,17 +7,15 @@ import type {
   CreateProjectFormProps,
 } from "./types/create-project-form.types.ts";
 
-const CreateProjectForm = ({ id, onSubmit }: CreateProjectFormProps) => {
+const CreateProjectForm = ({ id, initialValues, onSubmit }: CreateProjectFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<CreateProjectFormData>({
     resolver: zodResolver(createProjectFormSchema),
+    defaultValues: initialValues,
     mode: "onSubmit",
-    defaultValues: {
-      status: "new",
-    },
   });
 
   return (
@@ -44,6 +42,7 @@ const CreateProjectForm = ({ id, onSubmit }: CreateProjectFormProps) => {
         type="select"
         register={register}
         error={errors.status}
+        defaultValue={initialValues?.status}
         options={[
           { value: "new", label: "New" },
           { value: "active", label: "Active" },

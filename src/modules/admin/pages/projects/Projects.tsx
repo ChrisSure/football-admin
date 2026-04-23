@@ -1,26 +1,78 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import AdminLayout from "../../layouts/AdminLayout.tsx";
 import ListCard from "@ui/list-card/ListCard.tsx";
 import { useProjectsQuery } from "./api/queries/useProjectsQuery.ts";
+import { useCreateProjectMutation } from "./api/mutations/useCreateProjectMutation.ts";
+import { useUpdateProjectMutation } from "./api/mutations/useUpdateProjectMutation.ts";
+import { handleProjectClick, handleEditClick } from "./constants/projects.constants.ts";
 import Button from "@ui/button/Button.tsx";
-import Modal from "@ui/modal/Modal.tsx";
-import CreateProjectForm from "./forms/create-project-form/CreateProjectForm.tsx";
+import ProjectModal from "./components/project-modal/ProjectModal.tsx";
 import type { CreateProjectFormData } from "./forms/create-project-form/types/create-project-form.types.ts";
+import { useToast } from "@core/toast/hooks/useToast.ts";
+import { ApiError } from "@core/api/api-error.ts";
+import type { Project } from "../dashboard/types/dashboard.types.ts";
 
 const Projects = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data, isLoading, isError } = useProjectsQuery();
+  const { mutate: createProject } = useCreateProjectMutation();
+  const { mutate: updateProject } = useUpdateProjectMutation();
+  const { showToast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleProjectClick = (project: { id: number }) => {
-    navigate(`/admin/project/${project.id}`);
-  };
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
 
   const handleCreateProject = (formData: CreateProjectFormData) => {
-    // TODO: Implement project creation mutation
-    console.log("Creating project:", formData);
-    setIsModalOpen(false);
+    createProject(formData, {
+      onSuccess: (response) => {
+        showToast({ text: response.message || "Project created successfully", type: "success" });
+        setIsModalOpen(false);
+        queryClient.invalidateQueries({ queryKey: ["projects"] });
+      },
+      onError: (error) => {
+        if (error instanceof ApiError && error.status === 409) {
+          showToast({ text: error.message, type: "error" });
+        } else {
+          showToast({ text: error.message || "An error occurred", type: "error" });
+        }
+        setIsModalOpen(false);
+      },
+    });
+  };
+
+  const handleUpdateProject = (formData: CreateProjectFormData) => {
+    if (!editingProject) return;
+    
+    updateProject(
+      { id: editingProject.id, data: formData },
+      {
+        onSuccess: (response) => {
+          showToast({ text: response.message || "Project updated successfully", type: "success" });
+          setIsModalOpen(false);
+          setEditingProject(null);
+          queryClient.invalidateQueries({ queryKey: ["projects"] });
+        },
+        onError: (error) => {
+          if (error instanceof ApiError && error.status === 409) {
+            showToast({ text: error.message, type: "error" });
+          } else {
+            showToast({ text: error.message || "An error occurred", type: "error" });
+          }
+          setIsModalOpen(false);
+          setEditingProject(null);
+        },
+      }
+    );
+  };
+
+  const handleFormSubmit = (formData: CreateProjectFormData) => {
+    if (editingProject) {
+      handleUpdateProject(formData);
+    } else {
+      handleCreateProject(formData);
+    }
   };
 
   return (
@@ -28,7 +80,10 @@ const Projects = () => {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold text-gray-800">Projects</h2>
-          <Button onClick={() => setIsModalOpen(true)}>Create Project</Button>
+          <Button onClick={() => {
+            setEditingProject(null);
+            setIsModalOpen(true);
+          }}>Create Project</Button>
         </div>
 
         {!isLoading && !isError && data && data.length === 0 && (
@@ -47,25 +102,21 @@ const Projects = () => {
                 status={project.status}
                 created={project.created}
                 updated={project.updated}
-                onClick={() => handleProjectClick(project)}
+                onClick={() => handleProjectClick(project, navigate)}
+                onEdit={(e) => handleEditClick(e, project, setEditingProject, setIsModalOpen)}
               />
             ))}
           </div>
         )}
       </div>
 
-      <Modal
-        open={isModalOpen}
+      <ProjectModal
+        isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
-        title="Create Project"
-        showFooter
-        submitFormId="create-project-form"
-      >
-        <CreateProjectForm
-          id="create-project-form"
-          onSubmit={handleCreateProject}
-        />
-      </Modal>
+        editingProject={editingProject}
+        setEditingProject={setEditingProject}
+        onSubmit={handleFormSubmit}
+      />
     </AdminLayout>
   );
 };

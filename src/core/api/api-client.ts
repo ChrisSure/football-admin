@@ -1,4 +1,5 @@
 import { getToken } from "../auth/utils/token.utils.ts";
+import { ApiError } from "./api-error.ts";
 
 const BASE_URL = "http://localhost:3000";
 
@@ -25,7 +26,7 @@ export const apiClient = async <T>(
     const errorData = await response.json().catch(() => ({}));
     const errorMessage =
       errorData.message || `HTTP error! status: ${response.status}`;
-    throw new Error(errorMessage);
+    throw new ApiError(errorMessage, response.status, errorData);
   }
 
   return response.json();

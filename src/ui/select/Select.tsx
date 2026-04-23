@@ -47,7 +47,12 @@ const Select = ({
   ...props
 }: SelectProps) => {
   return (
-    <BaseSelect.Root name={name} inputRef={ref} {...props}>
+    <BaseSelect.Root
+      name={name}
+      inputRef={ref}
+      onValueChange={(value) => onChange?.({ target: { name, value } })}
+      {...props}
+    >
       <BaseSelect.Trigger
         className={className ? `${baseClassName} ${className}` : baseClassName}
         data-invalid={dataInvalid ? "" : undefined}
