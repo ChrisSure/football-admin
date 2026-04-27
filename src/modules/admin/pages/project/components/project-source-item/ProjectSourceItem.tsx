@@ -9,7 +9,11 @@ export type ProjectSourceItemProps = {
   onDelete: (source: ProjectSource) => void;
 };
 
-export const ProjectSourceItem = ({ source, onEdit, onDelete }: ProjectSourceItemProps) => {
+export const ProjectSourceItem = ({
+  source,
+  onEdit,
+  onDelete,
+}: ProjectSourceItemProps) => {
   return (
     <li className="p-4 flex items-center justify-between hover:bg-gray-50">
       <div className="flex flex-col gap-1">

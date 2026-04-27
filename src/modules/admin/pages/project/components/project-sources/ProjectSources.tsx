@@ -4,7 +4,10 @@ import Modal from "../../../../../../ui/modal/Modal.tsx";
 import { useToast } from "@core/toast/hooks/useToast.ts";
 import SourceForm from "../../forms/source-form/SourceForm.tsx";
 import type { SourceFormData } from "../../forms/source-form/types/source-form.types.ts";
-import type { ProjectSource, ProjectSourcesProps } from "../../types/project.types.ts";
+import type {
+  ProjectSource,
+  ProjectSourcesProps,
+} from "../../types/project.types.ts";
 import { useCreateSourceMutation } from "../../api/mutations/useCreateSourceMutation.ts";
 import { useUpdateSourceMutation } from "../../api/mutations/useUpdateSourceMutation.ts";
 import { useDeleteSourceMutation } from "../../api/mutations/useDeleteSourceMutation.ts";
@@ -12,9 +15,11 @@ import { ProjectSourceItem } from "@admin/pages/project/components/project-sourc
 
 const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingSource, setEditingSource] = useState<ProjectSource | null>(null);
+  const [editingSource, setEditingSource] = useState<ProjectSource | null>(
+    null,
+  );
   const { showToast } = useToast();
-  
+
   const createMutation = useCreateSourceMutation();
   const updateMutation = useUpdateSourceMutation();
   const deleteMutation = useDeleteSourceMutation();
@@ -39,17 +44,27 @@ const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
   };
 
   const handleDeleteSource = (source: ProjectSource) => {
-    if (window.confirm(`Are you sure you want to delete the source "${source.title}"?`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to delete the source "${source.title}"?`,
+      )
+    ) {
       deleteMutation.mutate(
         { id: source.id, projectId },
         {
           onSuccess: () => {
-            showToast({ text: `Source "${source.title}" deleted`, type: "success" });
+            showToast({
+              text: `Source "${source.title}" deleted`,
+              type: "success",
+            });
           },
-          onError: (error: any) => {
-            showToast({ text: `Failed to delete source: ${error.message || "Unknown error"}`, type: "error" });
+          onError: (error: Error) => {
+            showToast({
+              text: `Failed to delete source: ${error.message || "Unknown error"}`,
+              type: "error",
+            });
           },
-        }
+        },
       );
     }
   };
@@ -67,13 +82,19 @@ const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
         },
         {
           onSuccess: () => {
-            showToast({ text: `Source "${data.title}" updated`, type: "success" });
+            showToast({
+              text: `Source "${data.title}" updated`,
+              type: "success",
+            });
             setIsModalOpen(false);
           },
-          onError: (error: any) => {
-            showToast({ text: `Failed to update source: ${error.message || "Unknown error"}`, type: "error" });
+          onError: (error: Error) => {
+            showToast({
+              text: `Failed to update source: ${error.message || "Unknown error"}`,
+              type: "error",
+            });
           },
-        }
+        },
       );
     } else {
       createMutation.mutate(
@@ -85,13 +106,19 @@ const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
         },
         {
           onSuccess: () => {
-            showToast({ text: `Source "${data.title}" added`, type: "success" });
+            showToast({
+              text: `Source "${data.title}" added`,
+              type: "success",
+            });
             setIsModalOpen(false);
           },
-          onError: (error: any) => {
-            showToast({ text: `Failed to add source: ${error.message || "Unknown error"}`, type: "error" });
+          onError: (error: Error) => {
+            showToast({
+              text: `Failed to add source: ${error.message || "Unknown error"}`,
+              type: "error",
+            });
           },
-        }
+        },
       );
     }
   };

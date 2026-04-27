@@ -34,7 +34,11 @@ const Modal = ({
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Backdrop className={backdropClassName} />
-        <Dialog.Popup className={className ? `${popupClassName} ${className}` : popupClassName}>
+        <Dialog.Popup
+          className={
+            className ? `${popupClassName} ${className}` : popupClassName
+          }
+        >
           <div className="flex items-center justify-between">
             <Dialog.Title className={titleClassName}>{title}</Dialog.Title>
             <Dialog.Close className={closeButtonClassName}>

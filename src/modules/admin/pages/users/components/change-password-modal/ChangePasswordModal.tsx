@@ -27,10 +27,7 @@ const ChangePasswordModal = ({
       submitFormId="change-password-form"
     >
       <div className="py-4">
-        <ChangePasswordForm
-          id="change-password-form"
-          onSubmit={onSubmit}
-        />
+        <ChangePasswordForm id="change-password-form" onSubmit={onSubmit} />
       </div>
     </Modal>
   );

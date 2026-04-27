@@ -13,7 +13,10 @@ import SimplePagination from "@ui/components/simple-pagination/SimplePagination.
 import NotFound from "@ui/not-found/NotFound.tsx";
 import UserModal from "./components/user-modal/UserModal.tsx";
 import ChangePasswordModal from "./components/change-password-modal/ChangePasswordModal.tsx";
-import type { CreateUserFormData, UpdateUserFormData } from "./forms/create-user-form/types/create-user-form.types.ts";
+import type {
+  CreateUserFormData,
+  UpdateUserFormData,
+} from "./forms/create-user-form/types/create-user-form.types.ts";
 import type { ChangePasswordFormData } from "./forms/change-password-form/types/change-password-form.types.ts";
 import { useToast } from "@core/toast/hooks/useToast.ts";
 import { ApiError } from "@core/api/api-error.ts";
@@ -29,20 +32,28 @@ const Users = () => {
   const { showToast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
-  const [changingPasswordUser, setChangingPasswordUser] = useState<User | null>(null);
+  const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
+    useState(false);
+  const [changingPasswordUser, setChangingPasswordUser] = useState<User | null>(
+    null,
+  );
 
   const handleCreateUser = (formData: CreateUserFormData) => {
     const { projects, ...rest } = formData;
-    const { repeatPassword: _repeatPassword, ...restWithoutRepeat } = rest as CreateUserFormData;
-    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { repeatPassword: _, ...restWithoutRepeat } =
+      rest as CreateUserFormData;
+
     const dataToSend = {
       ...restWithoutRepeat,
       projectIds: projects?.map(Number) || [],
     };
     createUser(dataToSend, {
       onSuccess: (response) => {
-        showToast({ text: response.message || "User created successfully", type: "success" });
+        showToast({
+          text: response.message || "User created successfully",
+          type: "success",
+        });
         setIsModalOpen(false);
         queryClient.invalidateQueries({ queryKey: ["users"] });
       },
@@ -50,7 +61,10 @@ const Users = () => {
         if (error instanceof ApiError && error.status === 409) {
           showToast({ text: error.message, type: "error" });
         } else {
-          showToast({ text: error.message || "An error occurred", type: "error" });
+          showToast({
+            text: error.message || "An error occurred",
+            type: "error",
+          });
         }
         setIsModalOpen(false);
       },
@@ -59,10 +73,12 @@ const Users = () => {
 
   const handleUpdateUser = (formData: CreateUserFormData) => {
     if (!editingUser) return;
-    
+
     const { projects, ...rest } = formData;
-    const { repeatPassword: _repeatPassword, ...restWithoutRepeat } = rest as CreateUserFormData;
-    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { repeatPassword: _, ...restWithoutRepeat } =
+      rest as CreateUserFormData;
+
     const dataToSend = {
       ...restWithoutRepeat,
       projectIds: projects?.map(Number) || [],
@@ -71,7 +87,10 @@ const Users = () => {
       { id: editingUser.id, data: dataToSend },
       {
         onSuccess: (response) => {
-          showToast({ text: response.message || "User updated successfully", type: "success" });
+          showToast({
+            text: response.message || "User updated successfully",
+            type: "success",
+          });
           setIsModalOpen(false);
           setEditingUser(null);
           queryClient.invalidateQueries({ queryKey: ["users"] });
@@ -80,16 +99,21 @@ const Users = () => {
           if (error instanceof ApiError && error.status === 409) {
             showToast({ text: error.message, type: "error" });
           } else {
-            showToast({ text: error.message || "An error occurred", type: "error" });
+            showToast({
+              text: error.message || "An error occurred",
+              type: "error",
+            });
           }
           setIsModalOpen(false);
           setEditingUser(null);
         },
-      }
+      },
     );
   };
 
-  const handleFormSubmit = (formData: CreateUserFormData | UpdateUserFormData) => {
+  const handleFormSubmit = (
+    formData: CreateUserFormData | UpdateUserFormData,
+  ) => {
     if (editingUser) {
       handleUpdateUser(formData as CreateUserFormData);
     } else {
@@ -99,14 +123,20 @@ const Users = () => {
 
   const handleDeleteUser = (e: React.MouseEvent, user: User) => {
     e.stopPropagation();
-    
+
     deleteUser(user.id, {
       onSuccess: (response) => {
-        showToast({ text: response.message || "User deleted successfully", type: "success" });
+        showToast({
+          text: response.message || "User deleted successfully",
+          type: "success",
+        });
         queryClient.invalidateQueries({ queryKey: ["users"] });
       },
       onError: (error) => {
-        showToast({ text: error.message || "An error occurred", type: "error" });
+        showToast({
+          text: error.message || "An error occurred",
+          type: "error",
+        });
       },
     });
   };
@@ -124,16 +154,22 @@ const Users = () => {
       { id: changingPasswordUser.id, data: { newPassword: formData.password } },
       {
         onSuccess: (response) => {
-          showToast({ text: response.message || "Password changed successfully", type: "success" });
+          showToast({
+            text: response.message || "Password changed successfully",
+            type: "success",
+          });
           setIsChangePasswordModalOpen(false);
           setChangingPasswordUser(null);
         },
         onError: (error) => {
-          showToast({ text: error.message || "An error occurred", type: "error" });
+          showToast({
+            text: error.message || "An error occurred",
+            type: "error",
+          });
           setIsChangePasswordModalOpen(false);
           setChangingPasswordUser(null);
         },
-      }
+      },
     );
   };
 
@@ -142,10 +178,14 @@ const Users = () => {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold text-gray-800">Users</h2>
-          <Button onClick={() => {
-            setEditingUser(null);
-            setIsModalOpen(true);
-          }}>Create User</Button>
+          <Button
+            onClick={() => {
+              setEditingUser(null);
+              setIsModalOpen(true);
+            }}
+          >
+            Create User
+          </Button>
         </div>
 
         {!isLoading && !isError && data && data.length === 0 && (
@@ -160,12 +200,14 @@ const Users = () => {
               <ListCard
                 key={user.id}
                 title={user.name}
-                description={user.projects?.map(p => p.title).join(", ")}
+                description={user.projects?.map((p) => p.title).join(", ")}
                 status={user.status}
                 role={user.role}
                 created={user.created}
                 updated={user.updated}
-                onEdit={(e) => handleEditClick(e, user, setEditingUser, setIsModalOpen)}
+                onEdit={(e) =>
+                  handleEditClick(e, user, setEditingUser, setIsModalOpen)
+                }
                 onChangePassword={(e) => handleChangePasswordClick(e, user)}
                 onDelete={(e) => handleDeleteUser(e, user)}
               />

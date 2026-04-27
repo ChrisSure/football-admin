@@ -7,7 +7,10 @@ import { useProjectsQuery } from "./api/queries/useProjectsQuery.ts";
 import { useCreateProjectMutation } from "./api/mutations/useCreateProjectMutation.ts";
 import { useUpdateProjectMutation } from "./api/mutations/useUpdateProjectMutation.ts";
 import { useDeleteProjectMutation } from "./api/mutations/useDeleteProjectMutation.ts";
-import { handleProjectClick, handleEditClick } from "./constants/projects.constants.ts";
+import {
+  handleProjectClick,
+  handleEditClick,
+} from "./constants/projects.constants.ts";
 import Button from "@ui/button/Button.tsx";
 import SimplePagination from "@ui/components/simple-pagination/SimplePagination.tsx";
 import NotFound from "@ui/not-found/NotFound.tsx";
@@ -31,7 +34,10 @@ const Projects = () => {
   const handleCreateProject = (formData: CreateProjectFormData) => {
     createProject(formData, {
       onSuccess: (response) => {
-        showToast({ text: response.message || "Project created successfully", type: "success" });
+        showToast({
+          text: response.message || "Project created successfully",
+          type: "success",
+        });
         setIsModalOpen(false);
         queryClient.invalidateQueries({ queryKey: ["projects"] });
       },
@@ -39,7 +45,10 @@ const Projects = () => {
         if (error instanceof ApiError && error.status === 409) {
           showToast({ text: error.message, type: "error" });
         } else {
-          showToast({ text: error.message || "An error occurred", type: "error" });
+          showToast({
+            text: error.message || "An error occurred",
+            type: "error",
+          });
         }
         setIsModalOpen(false);
       },
@@ -48,12 +57,15 @@ const Projects = () => {
 
   const handleUpdateProject = (formData: CreateProjectFormData) => {
     if (!editingProject) return;
-    
+
     updateProject(
       { id: editingProject.id, data: formData },
       {
         onSuccess: (response) => {
-          showToast({ text: response.message || "Project updated successfully", type: "success" });
+          showToast({
+            text: response.message || "Project updated successfully",
+            type: "success",
+          });
           setIsModalOpen(false);
           setEditingProject(null);
           queryClient.invalidateQueries({ queryKey: ["projects"] });
@@ -62,12 +74,15 @@ const Projects = () => {
           if (error instanceof ApiError && error.status === 409) {
             showToast({ text: error.message, type: "error" });
           } else {
-            showToast({ text: error.message || "An error occurred", type: "error" });
+            showToast({
+              text: error.message || "An error occurred",
+              type: "error",
+            });
           }
           setIsModalOpen(false);
           setEditingProject(null);
         },
-      }
+      },
     );
   };
 
@@ -81,14 +96,20 @@ const Projects = () => {
 
   const handleDeleteProject = (e: React.MouseEvent, project: Project) => {
     e.stopPropagation();
-    
+
     deleteProject(project.id, {
       onSuccess: (response) => {
-        showToast({ text: response.message || "Project deleted successfully", type: "success" });
+        showToast({
+          text: response.message || "Project deleted successfully",
+          type: "success",
+        });
         queryClient.invalidateQueries({ queryKey: ["projects"] });
       },
       onError: (error) => {
-        showToast({ text: error.message || "An error occurred", type: "error" });
+        showToast({
+          text: error.message || "An error occurred",
+          type: "error",
+        });
       },
     });
   };
@@ -98,10 +119,14 @@ const Projects = () => {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold text-gray-800">Projects</h2>
-          <Button onClick={() => {
-            setEditingProject(null);
-            setIsModalOpen(true);
-          }}>Create Project</Button>
+          <Button
+            onClick={() => {
+              setEditingProject(null);
+              setIsModalOpen(true);
+            }}
+          >
+            Create Project
+          </Button>
         </div>
 
         {!isLoading && !isError && data && data.length === 0 && (
@@ -121,7 +146,9 @@ const Projects = () => {
                 created={project.created}
                 updated={project.updated}
                 onClick={() => handleProjectClick(project, navigate)}
-                onEdit={(e) => handleEditClick(e, project, setEditingProject, setIsModalOpen)}
+                onEdit={(e) =>
+                  handleEditClick(e, project, setEditingProject, setIsModalOpen)
+                }
                 onDelete={(e) => handleDeleteProject(e, project)}
               />
             )}

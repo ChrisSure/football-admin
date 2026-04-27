@@ -1,18 +1,29 @@
 import { useForm, type FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "@core/form/components/form-field/FormField.tsx";
-import { createUserFormSchema, updateUserFormSchema } from "./schemas/create-user-form.schema.ts";
+import {
+  createUserFormSchema,
+  updateUserFormSchema,
+} from "./schemas/create-user-form.schema.ts";
 import type {
   CreateUserFormData,
   UpdateUserFormData,
   CreateUserFormProps,
 } from "./types/create-user-form.types.ts";
 import { useActiveProjectsQuery } from "../../api/queries/useActiveProjectsQuery.ts";
-import { USER_ROLE_OPTIONS, USER_STATUS_OPTIONS } from "./constants/create-user-form.constants.ts";
+import {
+  USER_ROLE_OPTIONS,
+  USER_STATUS_OPTIONS,
+} from "./constants/create-user-form.constants.ts";
 
-const CreateUserForm = ({ id, initialValues, isEditing, onSubmit }: CreateUserFormProps) => {
+const CreateUserForm = ({
+  id,
+  initialValues,
+  isEditing,
+  onSubmit,
+}: CreateUserFormProps) => {
   const { data: projects } = useActiveProjectsQuery();
-  
+
   const schema = isEditing ? updateUserFormSchema : createUserFormSchema;
 
   const {
@@ -28,13 +39,18 @@ const CreateUserForm = ({ id, initialValues, isEditing, onSubmit }: CreateUserFo
     mode: "onSubmit",
   });
 
-  const projectOptions = projects?.map((p) => ({
-    value: p.id.toString(),
-    label: p.title,
-  })) || [];
+  const projectOptions =
+    projects?.map((p) => ({
+      value: p.id.toString(),
+      label: p.title,
+    })) || [];
 
   return (
-    <form id={id} onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col gap-5">
+    <form
+      id={id}
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex h-full flex-col gap-5"
+    >
       <FormField
         name="name"
         label="Name"

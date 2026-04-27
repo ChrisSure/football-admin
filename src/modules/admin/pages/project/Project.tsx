@@ -22,7 +22,10 @@ const Project = () => {
           <>
             <ProjectHeader title={data.title} onBackClick={handleBackClick} />
             <ProjectDetails project={data} />
-            <ProjectSources projectId={projectId} sources={data.sources || []} />
+            <ProjectSources
+              projectId={projectId}
+              sources={data.sources || []}
+            />
           </>
         )}
       </div>

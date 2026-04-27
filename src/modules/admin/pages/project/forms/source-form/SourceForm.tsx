@@ -2,7 +2,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "../../../../../../core/form/components/form-field/FormField.tsx";
 import { sourceFormSchema } from "./schemas/source-form.schema.ts";
-import type { SourceFormData, SourceFormProps } from "./types/source-form.types.ts";
+import type {
+  SourceFormData,
+  SourceFormProps,
+} from "./types/source-form.types.ts";
 import { SOURCE_STATUS_OPTIONS } from "./constants/source-form.constants.ts";
 
 const SourceForm = ({ id, initialValues, onSubmit }: SourceFormProps) => {
@@ -17,7 +20,11 @@ const SourceForm = ({ id, initialValues, onSubmit }: SourceFormProps) => {
   });
 
   return (
-    <form id={id} onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col gap-5">
+    <form
+      id={id}
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex h-full flex-col gap-5"
+    >
       <FormField
         name="title"
         label="Title"

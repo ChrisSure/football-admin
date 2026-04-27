@@ -35,7 +35,7 @@ const FormField = <TFieldValues extends FieldValues = FieldValues>({
           id={name}
           options={options}
           placeholder={placeholder}
-          defaultValue={defaultValue}
+          defaultValue={defaultValue as string | undefined}
           {...register(name)}
           {...(error && { "data-invalid": true })}
         />
@@ -44,7 +44,7 @@ const FormField = <TFieldValues extends FieldValues = FieldValues>({
           id={name}
           options={options || []}
           placeholder={placeholder}
-          defaultValue={defaultValue}
+          defaultValue={defaultValue as string[] | undefined}
           {...register(name)}
           {...(error && { "data-invalid": true })}
         />

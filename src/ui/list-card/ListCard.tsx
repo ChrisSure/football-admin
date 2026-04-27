@@ -44,7 +44,8 @@ const ListCard = ({
         )}
         {role && (
           <span>
-            Role: <span className="font-medium text-gray-700 capitalize">{role}</span>
+            Role:{" "}
+            <span className="font-medium text-gray-700 capitalize">{role}</span>
           </span>
         )}
         {created && (

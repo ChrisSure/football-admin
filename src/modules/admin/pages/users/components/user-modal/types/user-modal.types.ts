@@ -1,5 +1,8 @@
 import type { User } from "../../../../dashboard/types/dashboard.types.ts";
-import type { CreateUserFormData, UpdateUserFormData } from "../../../forms/create-user-form/types/create-user-form.types.ts";
+import type {
+  CreateUserFormData,
+  UpdateUserFormData,
+} from "../../../forms/create-user-form/types/create-user-form.types.ts";
 
 export interface UserModalProps {
   isOpen: boolean;

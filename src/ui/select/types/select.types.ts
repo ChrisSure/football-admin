@@ -10,8 +10,14 @@ export interface SelectProps {
   name?: string;
   value?: string;
   defaultValue?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement> | { target: { name?: string; value: string } }) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement> | { target: { name?: string } }) => void;
+  onChange?: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | { target: { name?: string; value: string } },
+  ) => void;
+  onBlur?: (
+    event: React.FocusEvent<HTMLInputElement> | { target: { name?: string } },
+  ) => void;
   ref?: Ref<HTMLInputElement>;
   "data-invalid"?: boolean;
   className?: string;

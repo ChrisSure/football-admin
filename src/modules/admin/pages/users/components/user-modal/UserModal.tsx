@@ -37,7 +37,8 @@ const UserModal = ({
                   name: editingUser.name,
                   status: editingUser.status as CreateUserFormData["status"],
                   role: editingUser.role as CreateUserFormData["role"],
-                  projects: editingUser.projects?.map((p) => p.id.toString()) || [],
+                  projects:
+                    editingUser.projects?.map((p) => p.id.toString()) || [],
                 }
               : undefined
           }

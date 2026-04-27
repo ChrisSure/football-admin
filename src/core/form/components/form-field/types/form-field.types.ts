@@ -11,11 +11,18 @@ export interface FormFieldProps<
 > {
   name: Path<TFieldValues>;
   label: string;
-  type?: "text" | "password" | "email" | "number" | "textarea" | "select" | "multi-select";
+  type?:
+    | "text"
+    | "password"
+    | "email"
+    | "number"
+    | "textarea"
+    | "select"
+    | "multi-select";
   placeholder?: string;
   register: UseFormRegister<TFieldValues>;
   error?: FieldError;
   children?: ReactNode; // For select options (legacy)
   options?: { value: string; label: string }[]; // For new select
-  defaultValue?: any;
+  defaultValue?: unknown;
 }

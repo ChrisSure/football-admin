@@ -11,7 +11,9 @@ export const useDeleteSourceMutation = () => {
         method: "DELETE",
       }),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["project", variables.projectId] });
+      queryClient.invalidateQueries({
+        queryKey: ["project", variables.projectId],
+      });
     },
   });
 };

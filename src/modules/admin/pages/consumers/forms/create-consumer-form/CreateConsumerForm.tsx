@@ -7,7 +7,11 @@ import type {
   CreateConsumerFormProps,
 } from "./types/create-consumer-form.types.ts";
 
-const CreateConsumerForm = ({ id, initialValues, onSubmit }: CreateConsumerFormProps) => {
+const CreateConsumerForm = ({
+  id,
+  initialValues,
+  onSubmit,
+}: CreateConsumerFormProps) => {
   const {
     register,
     handleSubmit,
@@ -19,7 +23,11 @@ const CreateConsumerForm = ({ id, initialValues, onSubmit }: CreateConsumerFormP
   });
 
   return (
-    <form id={id} onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col gap-5">
+    <form
+      id={id}
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex h-full flex-col gap-5"
+    >
       <FormField
         name="title"
         label="Title"

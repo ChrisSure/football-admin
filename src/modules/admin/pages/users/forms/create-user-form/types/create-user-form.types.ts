@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { createUserFormSchema, updateUserFormSchema } from "../schemas/create-user-form.schema.ts";
+import {
+  createUserFormSchema,
+  updateUserFormSchema,
+} from "../schemas/create-user-form.schema.ts";
 
 export type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 export type UpdateUserFormData = z.infer<typeof updateUserFormSchema>;

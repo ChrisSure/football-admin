@@ -1,5 +1,5 @@
-import type { User } from "../../../dashboard/types/dashboard.types.ts";
-import type { ChangePasswordFormData } from "../../forms/change-password-form/types/change-password-form.types.ts";
+import type { User } from "../../../../dashboard/types/dashboard.types.ts";
+import type { ChangePasswordFormData } from "../../../forms/change-password-form/types/change-password-form.types.ts";
 
 export interface ChangePasswordModalProps {
   isOpen: boolean;

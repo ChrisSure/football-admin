@@ -7,7 +7,11 @@ import type {
   CreateProjectFormProps,
 } from "./types/create-project-form.types.ts";
 
-const CreateProjectForm = ({ id, initialValues, onSubmit }: CreateProjectFormProps) => {
+const CreateProjectForm = ({
+  id,
+  initialValues,
+  onSubmit,
+}: CreateProjectFormProps) => {
   const {
     register,
     handleSubmit,
@@ -19,7 +23,11 @@ const CreateProjectForm = ({ id, initialValues, onSubmit }: CreateProjectFormPro
   });
 
   return (
-    <form id={id} onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col gap-5">
+    <form
+      id={id}
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex h-full flex-col gap-5"
+    >
       <FormField
         name="title"
         label="Title"

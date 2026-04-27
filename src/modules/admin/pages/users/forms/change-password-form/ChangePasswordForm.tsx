@@ -18,7 +18,11 @@ const ChangePasswordForm = ({ id, onSubmit }: ChangePasswordFormProps) => {
   });
 
   return (
-    <form id={id} onSubmit={handleSubmit(onSubmit)} className="flex h-full flex-col gap-5">
+    <form
+      id={id}
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex h-full flex-col gap-5"
+    >
       <FormField
         name="password"
         label="New Password"

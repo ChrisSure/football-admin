@@ -19,7 +19,7 @@ const SimplePagination = <T,>({
       <div className={listClassName}>
         {visibleItems.map((item, index) => renderItem(item, index))}
       </div>
-      
+
       {hasMore && !showAll && (
         <div className="flex justify-center mt-2">
           <Button variant="outline" onClick={() => setShowAll(true)}>

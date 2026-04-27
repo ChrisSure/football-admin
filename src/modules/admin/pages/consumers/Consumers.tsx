@@ -29,7 +29,10 @@ const Consumers = () => {
   const handleCreateConsumer = (formData: CreateConsumerFormData) => {
     createConsumer(formData, {
       onSuccess: (response) => {
-        showToast({ text: response.message || "Consumer created successfully", type: "success" });
+        showToast({
+          text: response.message || "Consumer created successfully",
+          type: "success",
+        });
         setIsModalOpen(false);
         queryClient.invalidateQueries({ queryKey: ["consumers"] });
       },
@@ -37,7 +40,10 @@ const Consumers = () => {
         if (error instanceof ApiError && error.status === 409) {
           showToast({ text: error.message, type: "error" });
         } else {
-          showToast({ text: error.message || "An error occurred", type: "error" });
+          showToast({
+            text: error.message || "An error occurred",
+            type: "error",
+          });
         }
         setIsModalOpen(false);
       },
@@ -46,12 +52,15 @@ const Consumers = () => {
 
   const handleUpdateConsumer = (formData: CreateConsumerFormData) => {
     if (!editingConsumer) return;
-    
+
     updateConsumer(
       { id: editingConsumer.id, data: formData },
       {
         onSuccess: (response) => {
-          showToast({ text: response.message || "Consumer updated successfully", type: "success" });
+          showToast({
+            text: response.message || "Consumer updated successfully",
+            type: "success",
+          });
           setIsModalOpen(false);
           setEditingConsumer(null);
           queryClient.invalidateQueries({ queryKey: ["consumers"] });
@@ -60,12 +69,15 @@ const Consumers = () => {
           if (error instanceof ApiError && error.status === 409) {
             showToast({ text: error.message, type: "error" });
           } else {
-            showToast({ text: error.message || "An error occurred", type: "error" });
+            showToast({
+              text: error.message || "An error occurred",
+              type: "error",
+            });
           }
           setIsModalOpen(false);
           setEditingConsumer(null);
         },
-      }
+      },
     );
   };
 
@@ -79,14 +91,20 @@ const Consumers = () => {
 
   const handleDeleteConsumer = (e: React.MouseEvent, consumer: Consumer) => {
     e.stopPropagation();
-    
+
     deleteConsumer(consumer.id, {
       onSuccess: (response) => {
-        showToast({ text: response.message || "Consumer deleted successfully", type: "success" });
+        showToast({
+          text: response.message || "Consumer deleted successfully",
+          type: "success",
+        });
         queryClient.invalidateQueries({ queryKey: ["consumers"] });
       },
       onError: (error) => {
-        showToast({ text: error.message || "An error occurred", type: "error" });
+        showToast({
+          text: error.message || "An error occurred",
+          type: "error",
+        });
       },
     });
   };
@@ -96,10 +114,14 @@ const Consumers = () => {
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl font-bold text-gray-800">Consumers</h2>
-          <Button onClick={() => {
-            setEditingConsumer(null);
-            setIsModalOpen(true);
-          }}>Create Consumer</Button>
+          <Button
+            onClick={() => {
+              setEditingConsumer(null);
+              setIsModalOpen(true);
+            }}
+          >
+            Create Consumer
+          </Button>
         </div>
 
         {!isLoading && !isError && data && data.length === 0 && (
@@ -118,7 +140,14 @@ const Consumers = () => {
                 status={consumer.status}
                 created={consumer.created}
                 updated={consumer.updated}
-                onEdit={(e) => handleEditClick(e, consumer, setEditingConsumer, setIsModalOpen)}
+                onEdit={(e) =>
+                  handleEditClick(
+                    e,
+                    consumer,
+                    setEditingConsumer,
+                    setIsModalOpen,
+                  )
+                }
                 onDelete={(e) => handleDeleteConsumer(e, consumer)}
               />
             )}
