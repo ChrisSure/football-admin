@@ -3,6 +3,7 @@ import AdminLayout from "../../layouts/AdminLayout.tsx";
 import { useProjectQuery } from "./api/queries/useProjectQuery.ts";
 import ProjectHeader from "./components/project-header/ProjectHeader.tsx";
 import ProjectDetails from "./components/project-details/ProjectDetails.tsx";
+import ProjectSources from "./components/project-sources/ProjectSources.tsx";
 
 const Project = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,6 +22,7 @@ const Project = () => {
           <>
             <ProjectHeader title={data.title} onBackClick={handleBackClick} />
             <ProjectDetails project={data} />
+            <ProjectSources projectId={projectId} sources={data.sources || []} />
           </>
         )}
       </div>
