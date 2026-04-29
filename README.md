@@ -71,7 +71,7 @@ component-name/
 **Example UI Component:**
 
 ```
-ui/components/button/
+ui/button/
   ├── Button.tsx
   ├── constants/
   │   └── button.constants.ts

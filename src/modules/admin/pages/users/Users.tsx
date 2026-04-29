@@ -9,7 +9,7 @@ import { useDeleteUserMutation } from "./api/mutations/useDeleteUserMutation.ts"
 import { useChangePasswordMutation } from "./api/mutations/useChangePasswordMutation.ts";
 import { handleEditClick } from "./constants/users.constants.ts";
 import Button from "@ui/button/Button.tsx";
-import SimplePagination from "@ui/components/simple-pagination/SimplePagination.tsx";
+import SimplePagination from "@ui/simple-pagination/SimplePagination.tsx";
 import NotFound from "@ui/not-found/NotFound.tsx";
 import UserModal from "./components/user-modal/UserModal.tsx";
 import ChangePasswordModal from "./components/change-password-modal/ChangePasswordModal.tsx";

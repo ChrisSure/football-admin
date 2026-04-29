@@ -8,7 +8,7 @@ import { useUpdateConsumerMutation } from "./api/mutations/useUpdateConsumerMuta
 import { useDeleteConsumerMutation } from "./api/mutations/useDeleteConsumerMutation.ts";
 import { handleEditClick } from "./constants/consumers.constants.ts";
 import Button from "@ui/button/Button.tsx";
-import SimplePagination from "@ui/components/simple-pagination/SimplePagination.tsx";
+import SimplePagination from "@ui/simple-pagination/SimplePagination.tsx";
 import NotFound from "@ui/not-found/NotFound.tsx";
 import ConsumerModal from "./components/consumer-modal/ConsumerModal.tsx";
 import type { CreateConsumerFormData } from "./forms/create-consumer-form/types/create-consumer-form.types.ts";

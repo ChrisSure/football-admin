@@ -1,4 +1,4 @@
-import Badge from "../../../../../../ui/badge/Badge.tsx";
+import Badge from "@ui/badge/Badge.tsx";
 import type { ProjectDetailsProps } from "./types/project-details.types.ts";
 
 const ProjectDetails = ({ project }: ProjectDetailsProps) => {

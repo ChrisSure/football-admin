@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Button from "../../../../../../ui/button/Button.tsx";
-import Modal from "../../../../../../ui/modal/Modal.tsx";
+import Button from "@ui/button/Button.tsx";
+import Modal from "@ui/modal/Modal.tsx";
 import { useToast } from "@core/toast/hooks/useToast.ts";
 import SourceForm from "../../forms/source-form/SourceForm.tsx";
 import type { SourceFormData } from "../../forms/source-form/types/source-form.types.ts";
@@ -12,6 +12,7 @@ import { useCreateSourceMutation } from "../../api/mutations/useCreateSourceMuta
 import { useUpdateSourceMutation } from "../../api/mutations/useUpdateSourceMutation.ts";
 import { useDeleteSourceMutation } from "../../api/mutations/useDeleteSourceMutation.ts";
 import { ProjectSourceItem } from "@admin/pages/project/components/project-source-item/ProjectSourceItem.tsx";
+import NotFound from "@ui/not-found/NotFound.tsx";
 
 const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -143,9 +144,7 @@ const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
             ))}
           </ul>
         ) : (
-          <div className="flex h-full items-center justify-center text-gray-500">
-            No sources found for this project.
-          </div>
+          <NotFound message="No sources found for this project." />
         )}
       </div>
 

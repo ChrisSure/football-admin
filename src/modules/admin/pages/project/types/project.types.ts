@@ -1,3 +1,5 @@
+import type { Consumer } from "../../consumers/types/consumers.types.ts";
+
 export type ProjectSource = {
   id: number;
   title: string;
@@ -16,6 +18,7 @@ export type Project = {
   created: string;
   updated: string;
   sources: ProjectSource[];
+  consumers?: Consumer[];
 };
 
 export type ProjectResponse = Project;

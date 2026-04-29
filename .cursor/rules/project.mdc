@@ -38,7 +38,7 @@ Each unit (component, layout, page, etc.) may contain the following folders:
 
 Example component structure:
 ```
-ui/components/button/
+ui/button/
   ├── Button.tsx
   ├── constants/
   │   └── button.constants.ts
@@ -100,7 +100,7 @@ pages/login/
 - Pages may have their own `api/` subfolder for page-specific API logic
   - `api/mutations/` contains mutation functions for data modifications
 - Pages may also have a `components/` subfolder for other page-specific components
-- Place truly reusable UI components in `ui/components/`
+- Place truly reusable UI components in `ui/`
 - Place abstract form components and utilities in `core/form/`
 - Each component unit can contain: `constants/`, `enums/`, `components/`, `types/`, and (for pages) `forms/` and `api/` subfolders as needed
 
@@ -114,7 +114,7 @@ pages/login/
   import { useState } from "react";
   import AuthGuard from "../../../core/auth/guards/AuthGuard.tsx";
   import AdminLayout from "../layouts/AdminLayout.tsx";
-  import Button from "../../../ui/components/button/Button.tsx";
+  import Button from "@ui/button/Button.tsx";
   ```
 
 ## Styling
@@ -134,7 +134,7 @@ The project uses Tailwind CSS v4+ with custom design tokens:
 The project uses Base UI (unstyled primitives) styled with Tailwind CSS:
 
 - **Base UI**: Provides accessible, unstyled components (`@base-ui/react`)
-- **Component pattern**: Wrap Base UI primitives with Tailwind styles in `ui/components/`
+- **Component pattern**: Wrap Base UI primitives with Tailwind styles in `ui/`
 
 ### Available UI Components
 
@@ -150,7 +150,7 @@ The project uses Base UI (unstyled primitives) styled with Tailwind CSS:
 
 ### Creating new UI components
 
-1. Create folder: `src/ui/components/component-name/`
+1. Create folder: `src/ui/component-name/`
 2. Add `ComponentName.tsx` wrapping Base UI primitive (if applicable)
 3. Optionally add subfolders as needed:
    - `constants/component-name.constants.ts` - Style constants and configuration (export `baseClassName` with Tailwind classes)

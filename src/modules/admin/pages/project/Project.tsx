@@ -4,6 +4,7 @@ import { useProjectQuery } from "./api/queries/useProjectQuery.ts";
 import ProjectHeader from "./components/project-header/ProjectHeader.tsx";
 import ProjectDetails from "./components/project-details/ProjectDetails.tsx";
 import ProjectSources from "./components/project-sources/ProjectSources.tsx";
+import ProjectConsumers from "./components/project-consumers/ProjectConsumers.tsx";
 
 const Project = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,6 +27,7 @@ const Project = () => {
               projectId={projectId}
               sources={data.sources || []}
             />
+            <ProjectConsumers project={data} />
           </>
         )}
       </div>

@@ -12,7 +12,7 @@ import {
   handleEditClick,
 } from "./constants/projects.constants.ts";
 import Button from "@ui/button/Button.tsx";
-import SimplePagination from "@ui/components/simple-pagination/SimplePagination.tsx";
+import SimplePagination from "@ui/simple-pagination/SimplePagination.tsx";
 import NotFound from "@ui/not-found/NotFound.tsx";
 import ProjectModal from "./components/project-modal/ProjectModal.tsx";
 import type { CreateProjectFormData } from "./forms/create-project-form/types/create-project-form.types.ts";
