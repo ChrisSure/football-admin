@@ -1,7 +1,7 @@
 import { getToken } from "../auth/utils/token.utils.ts";
 import { ApiError } from "./api-error.ts";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://football-api-production-915f.up.railway.app";
 
 export const apiClient = async <T>(
   endpoint: string,
