@@ -1,5 +1,5 @@
 export const listCardClassName =
-  "bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-4 cursor-pointer h-[100px] w-full flex items-center gap-4";
+  "bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 p-4 cursor-pointer min-h-[72px] sm:h-[100px] w-full flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4";
 
 export const listCardTitleClassName =
   "text-lg font-semibold text-gray-800 truncate";
@@ -8,7 +8,7 @@ export const listCardDescriptionClassName =
   "text-gray-600 text-xs line-clamp-1";
 
 export const listCardMetaClassName =
-  "flex items-center gap-3 text-xs text-gray-500 whitespace-nowrap";
+  "flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500 sm:flex-nowrap";
 
 export const listCardStatusClassName: Record<string, string> = {
   active: "text-green-600 font-medium",

@@ -5,6 +5,7 @@ import ProjectHeader from "./components/project-header/ProjectHeader.tsx";
 import ProjectDetails from "./components/project-details/ProjectDetails.tsx";
 import ProjectSources from "./components/project-sources/ProjectSources.tsx";
 import ProjectConsumers from "./components/project-consumers/ProjectConsumers.tsx";
+import ProjectArticles from "./components/project-articles/ProjectArticles.tsx";
 
 const Project = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,6 +29,7 @@ const Project = () => {
               sources={data.sources || []}
             />
             <ProjectConsumers project={data} />
+            <ProjectArticles projectId={projectId} />
           </>
         )}
       </div>
