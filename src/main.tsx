@@ -9,6 +9,7 @@ import { adminRoutes } from "@admin/AdminRoutes.tsx";
 import { AuthProvider } from "@core/auth/providers/AuthProvider.tsx";
 import { ToastProvider } from "@core/toast/ToastProvider.tsx";
 import { LoadingProvider } from "@core/loading/LoadingProvider.tsx";
+import { ApiErrorHandler } from "@core/api/components/ApiErrorHandler.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,17 +28,19 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <ToastProvider>
-        <QueryClientProvider client={queryClient}>
-          <LoadingProvider>
-            <AuthProvider>
-              <Routes>
-                {loginRoutes}
-                {adminRoutes}
-              </Routes>
-            </AuthProvider>
-          </LoadingProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        <ApiErrorHandler>
+          <QueryClientProvider client={queryClient}>
+            <LoadingProvider>
+              <AuthProvider>
+                <Routes>
+                  {loginRoutes}
+                  {adminRoutes}
+                </Routes>
+              </AuthProvider>
+            </LoadingProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </ApiErrorHandler>
       </ToastProvider>
     </BrowserRouter>
   </StrictMode>,

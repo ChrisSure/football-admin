@@ -14,4 +14,7 @@ export default defineConfig({
       "@core": path.resolve(__dirname, "./src/core"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1000,
+  },
 });

@@ -1,6 +1,7 @@
 import { getToken } from "../auth/utils/token.utils.ts";
+import { ApiError } from "./api-error.ts";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://football-api-production-915f.up.railway.app";
 
 export const apiClient = async <T>(
   endpoint: string,
@@ -25,8 +26,26 @@ export const apiClient = async <T>(
     const errorData = await response.json().catch(() => ({}));
     const errorMessage =
       errorData.message || `HTTP error! status: ${response.status}`;
-    throw new Error(errorMessage);
+
+    if (response.status >= 400 && response.status < 600) {
+      window.dispatchEvent(
+        new CustomEvent("api-error", {
+          detail: { message: errorMessage, status: response.status },
+        }),
+      );
+    }
+
+    throw new ApiError(errorMessage, response.status, errorData);
   }
 
-  return response.json();
+  if (response.status === 204) {
+    return {} as T;
+  }
+
+  const text = await response.text();
+  if (!text) {
+    return {} as T;
+  }
+
+  return JSON.parse(text);
 };

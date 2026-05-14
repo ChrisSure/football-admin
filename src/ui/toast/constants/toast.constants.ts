@@ -14,4 +14,4 @@ export const toastActionClassName =
   "inline-flex items-center justify-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-200";
 
 export const toastViewportClassName =
-  "fixed top-0 right-0 z-50 flex max-h-screen w-full flex-col gap-2 p-4 pt-[max(1rem,env(safe-area-inset-top))] sm:top-4 sm:right-4 sm:max-w-md";
+  "fixed top-0 right-0 z-50 flex max-h-screen w-full flex-col gap-2 p-4 pt-[max(1rem,env(safe-area-inset-top))] sm:top-4 sm:right-4 sm:max-w-md pointer-events-none [&>*]:pointer-events-auto";
