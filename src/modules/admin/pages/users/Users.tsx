@@ -13,6 +13,7 @@ import SimplePagination from "@ui/simple-pagination/SimplePagination.tsx";
 import NotFound from "@ui/not-found/NotFound.tsx";
 import UserModal from "./components/user-modal/UserModal.tsx";
 import ChangePasswordModal from "./components/change-password-modal/ChangePasswordModal.tsx";
+import ConfirmModal from "@ui/confirm-modal/ConfirmModal.tsx";
 import type {
   CreateUserFormData,
   UpdateUserFormData,
@@ -37,6 +38,7 @@ const Users = () => {
   const [changingPasswordUser, setChangingPasswordUser] = useState<User | null>(
     null,
   );
+  const [deletingUser, setDeletingUser] = useState<User | null>(null);
 
   const handleCreateUser = (formData: CreateUserFormData) => {
     const { projects, ...rest } = formData;
@@ -123,20 +125,27 @@ const Users = () => {
 
   const handleDeleteUser = (e: React.MouseEvent, user: User) => {
     e.stopPropagation();
+    setDeletingUser(user);
+  };
 
-    deleteUser(user.id, {
+  const confirmDeleteUser = () => {
+    if (!deletingUser) return;
+
+    deleteUser(deletingUser.id, {
       onSuccess: (response) => {
         showToast({
           text: response.message || "User deleted successfully",
           type: "success",
         });
         queryClient.invalidateQueries({ queryKey: ["users"] });
+        setDeletingUser(null);
       },
       onError: (error) => {
         showToast({
           text: error.message || "An error occurred",
           type: "error",
         });
+        setDeletingUser(null);
       },
     });
   };
@@ -230,6 +239,16 @@ const Users = () => {
         user={changingPasswordUser}
         setUser={setChangingPasswordUser}
         onSubmit={handleChangePasswordSubmit}
+      />
+
+      <ConfirmModal
+        open={!!deletingUser}
+        onOpenChange={(open) => !open && setDeletingUser(null)}
+        title="Delete User"
+        description={`Are you sure you want to delete the user "${deletingUser?.name}"?`}
+        onConfirm={confirmDeleteUser}
+        confirmText="Delete"
+        isDestructive
       />
     </AdminLayout>
   );

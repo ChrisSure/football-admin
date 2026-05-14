@@ -26,7 +26,10 @@ const Badge = ({ status, className }: BadgeProps) => {
     ? `${baseClassName} ${variantClass} ${className}`
     : `${baseClassName} ${variantClass}`;
 
-  return <span className={combinedClassName}>{status}</span>;
+  const displayStatus =
+    normalizedStatus.charAt(0).toUpperCase() + normalizedStatus.slice(1);
+
+  return <span className={combinedClassName}>{displayStatus}</span>;
 };
 
 export default Badge;

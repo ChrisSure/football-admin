@@ -11,6 +11,7 @@ import Button from "@ui/button/Button.tsx";
 import SimplePagination from "@ui/simple-pagination/SimplePagination.tsx";
 import NotFound from "@ui/not-found/NotFound.tsx";
 import ConsumerModal from "./components/consumer-modal/ConsumerModal.tsx";
+import ConfirmModal from "@ui/confirm-modal/ConfirmModal.tsx";
 import type { CreateConsumerFormData } from "./forms/create-consumer-form/types/create-consumer-form.types.ts";
 import { useToast } from "@core/toast/hooks/useToast.ts";
 import { ApiError } from "@core/api/api-error.ts";
@@ -25,6 +26,9 @@ const Consumers = () => {
   const { showToast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingConsumer, setEditingConsumer] = useState<Consumer | null>(null);
+  const [deletingConsumer, setDeletingConsumer] = useState<Consumer | null>(
+    null,
+  );
 
   const handleCreateConsumer = (formData: CreateConsumerFormData) => {
     createConsumer(formData, {
@@ -91,20 +95,27 @@ const Consumers = () => {
 
   const handleDeleteConsumer = (e: React.MouseEvent, consumer: Consumer) => {
     e.stopPropagation();
+    setDeletingConsumer(consumer);
+  };
 
-    deleteConsumer(consumer.id, {
+  const confirmDeleteConsumer = () => {
+    if (!deletingConsumer) return;
+
+    deleteConsumer(deletingConsumer.id, {
       onSuccess: (response) => {
         showToast({
           text: response.message || "Consumer deleted successfully",
           type: "success",
         });
         queryClient.invalidateQueries({ queryKey: ["consumers"] });
+        setDeletingConsumer(null);
       },
       onError: (error) => {
         showToast({
           text: error.message || "An error occurred",
           type: "error",
         });
+        setDeletingConsumer(null);
       },
     });
   };
@@ -161,6 +172,16 @@ const Consumers = () => {
         editingConsumer={editingConsumer}
         setEditingConsumer={setEditingConsumer}
         onSubmit={handleFormSubmit}
+      />
+
+      <ConfirmModal
+        open={!!deletingConsumer}
+        onOpenChange={(open) => !open && setDeletingConsumer(null)}
+        title="Delete Consumer"
+        description={`Are you sure you want to delete the consumer "${deletingConsumer?.title}"?`}
+        onConfirm={confirmDeleteConsumer}
+        confirmText="Delete"
+        isDestructive
       />
     </AdminLayout>
   );

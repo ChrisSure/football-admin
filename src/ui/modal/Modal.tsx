@@ -2,7 +2,8 @@ import { Dialog } from "@base-ui/react/dialog";
 import Button from "../button/Button.tsx";
 import {
   backdropClassName,
-  popupClassName,
+  popupBaseClassName,
+  popupSizeClassNames,
   titleClassName,
   closeButtonClassName,
 } from "./constants/modal.constants.ts";
@@ -21,6 +22,8 @@ const Modal = ({
   cancelText = "Cancel",
   submitFormId,
   isSubmitDisabled,
+  submitVariant,
+  size = "2xl",
 }: ModalProps) => {
   const handleCancel = () => {
     if (onCancel) {
@@ -30,15 +33,14 @@ const Modal = ({
     }
   };
 
+  const popupClassName =
+    `${popupBaseClassName} ${popupSizeClassNames[size]} ${className || ""}`.trim();
+
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Backdrop className={backdropClassName} />
-        <Dialog.Popup
-          className={
-            className ? `${popupClassName} ${className}` : popupClassName
-          }
-        >
+        <Dialog.Popup className={popupClassName}>
           <div className="flex items-center justify-between">
             <Dialog.Title className={titleClassName}>{title}</Dialog.Title>
             <Dialog.Close className={closeButtonClassName}>
@@ -71,6 +73,7 @@ const Modal = ({
                 form={submitFormId}
                 onClick={!submitFormId ? onSubmit : undefined}
                 disabled={isSubmitDisabled}
+                variant={submitVariant}
               >
                 {submitText}
               </Button>

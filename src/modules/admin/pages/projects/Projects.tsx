@@ -15,6 +15,7 @@ import Button from "@ui/button/Button.tsx";
 import SimplePagination from "@ui/simple-pagination/SimplePagination.tsx";
 import NotFound from "@ui/not-found/NotFound.tsx";
 import ProjectModal from "./components/project-modal/ProjectModal.tsx";
+import ConfirmModal from "@ui/confirm-modal/ConfirmModal.tsx";
 import type { CreateProjectFormData } from "./forms/create-project-form/types/create-project-form.types.ts";
 import { useToast } from "@core/toast/hooks/useToast.ts";
 import { ApiError } from "@core/api/api-error.ts";
@@ -30,6 +31,7 @@ const Projects = () => {
   const { showToast } = useToast();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [deletingProject, setDeletingProject] = useState<Project | null>(null);
 
   const handleCreateProject = (formData: CreateProjectFormData) => {
     createProject(formData, {
@@ -96,20 +98,27 @@ const Projects = () => {
 
   const handleDeleteProject = (e: React.MouseEvent, project: Project) => {
     e.stopPropagation();
+    setDeletingProject(project);
+  };
 
-    deleteProject(project.id, {
+  const confirmDeleteProject = () => {
+    if (!deletingProject) return;
+
+    deleteProject(deletingProject.id, {
       onSuccess: (response) => {
         showToast({
           text: response.message || "Project deleted successfully",
           type: "success",
         });
         queryClient.invalidateQueries({ queryKey: ["projects"] });
+        setDeletingProject(null);
       },
       onError: (error) => {
         showToast({
           text: error.message || "An error occurred",
           type: "error",
         });
+        setDeletingProject(null);
       },
     });
   };
@@ -162,6 +171,16 @@ const Projects = () => {
         editingProject={editingProject}
         setEditingProject={setEditingProject}
         onSubmit={handleFormSubmit}
+      />
+
+      <ConfirmModal
+        open={!!deletingProject}
+        onOpenChange={(open) => !open && setDeletingProject(null)}
+        title="Delete Project"
+        description={`Are you sure you want to delete the project "${deletingProject?.title}"?`}
+        onConfirm={confirmDeleteProject}
+        confirmText="Delete"
+        isDestructive
       />
     </AdminLayout>
   );

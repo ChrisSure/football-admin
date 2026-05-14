@@ -66,7 +66,14 @@ const Select = ({
         data-invalid={dataInvalid ? "" : undefined}
         onBlur={onBlur}
       >
-        <BaseSelect.Value placeholder={placeholder} />
+        <BaseSelect.Value placeholder={placeholder}>
+          {(value) => {
+            if (!value) return placeholder;
+            const selectedOption = options.find((opt) => opt.value === value);
+            const text = selectedOption ? selectedOption.label : String(value);
+            return text.charAt(0).toUpperCase() + text.slice(1);
+          }}
+        </BaseSelect.Value>
         <BaseSelect.Icon>
           <ChevronUpDownIcon />
         </BaseSelect.Icon>

@@ -13,4 +13,6 @@ export interface ModalProps {
   cancelText?: string;
   submitFormId?: string;
   isSubmitDisabled?: boolean;
+  submitVariant?: "primary" | "secondary" | "outline" | "ghost" | "destructive";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl";
 }

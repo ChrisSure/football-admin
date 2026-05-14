@@ -14,4 +14,5 @@ export const projectCardStatusClassName = {
   active: "text-green-600 font-medium",
   inactive: "text-gray-500 font-medium",
   archived: "text-red-600 font-medium",
+  stopped: "text-red-600 font-medium",
 };

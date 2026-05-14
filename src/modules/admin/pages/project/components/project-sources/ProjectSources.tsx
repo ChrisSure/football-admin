@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "@ui/button/Button.tsx";
+import ConfirmModal from "@ui/confirm-modal/ConfirmModal.tsx";
 import Modal from "@ui/modal/Modal.tsx";
 import { useToast } from "@core/toast/hooks/useToast.ts";
 import SourceForm from "../../forms/source-form/SourceForm.tsx";
@@ -17,6 +18,9 @@ import NotFound from "@ui/not-found/NotFound.tsx";
 const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSource, setEditingSource] = useState<ProjectSource | null>(
+    null,
+  );
+  const [deletingSource, setDeletingSource] = useState<ProjectSource | null>(
     null,
   );
   const { showToast } = useToast();
@@ -45,29 +49,31 @@ const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
   };
 
   const handleDeleteSource = (source: ProjectSource) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the source "${source.title}"?`,
-      )
-    ) {
-      deleteMutation.mutate(
-        { id: source.id, projectId },
-        {
-          onSuccess: () => {
-            showToast({
-              text: `Source "${source.title}" deleted`,
-              type: "success",
-            });
-          },
-          onError: (error: Error) => {
-            showToast({
-              text: `Failed to delete source: ${error.message || "Unknown error"}`,
-              type: "error",
-            });
-          },
+    setDeletingSource(source);
+  };
+
+  const confirmDeleteSource = () => {
+    if (!deletingSource) return;
+
+    deleteMutation.mutate(
+      { id: deletingSource.id, projectId },
+      {
+        onSuccess: () => {
+          showToast({
+            text: `Source "${deletingSource.title}" deleted`,
+            type: "success",
+          });
+          setDeletingSource(null);
         },
-      );
-    }
+        onError: (error: Error) => {
+          showToast({
+            text: `Failed to delete source: ${error.message || "Unknown error"}`,
+            type: "error",
+          });
+          setDeletingSource(null);
+        },
+      },
+    );
   };
 
   const handleSubmit = (data: SourceFormData) => {
@@ -162,6 +168,16 @@ const ProjectSources = ({ projectId, sources }: ProjectSourcesProps) => {
           onSubmit={handleSubmit}
         />
       </Modal>
+
+      <ConfirmModal
+        open={!!deletingSource}
+        onOpenChange={(open) => !open && setDeletingSource(null)}
+        title="Delete Source"
+        description={`Are you sure you want to delete the source "${deletingSource?.title}"?`}
+        onConfirm={confirmDeleteSource}
+        confirmText="Delete"
+        isDestructive
+      />
     </div>
   );
 };
