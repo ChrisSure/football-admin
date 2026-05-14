@@ -18,7 +18,7 @@ const Project = () => {
   };
 
   return (
-    <AdminLayout>
+    <AdminLayout isLoading={isLoading}>
       <div className="flex flex-col gap-6">
         {!isLoading && !isError && data && (
           <>

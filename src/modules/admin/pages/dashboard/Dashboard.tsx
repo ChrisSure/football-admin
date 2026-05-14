@@ -14,7 +14,7 @@ const Dashboard = () => {
   };
 
   return (
-    <AdminLayout>
+    <AdminLayout isLoading={isLoading}>
       <div className="flex flex-col gap-6">
         <h2 className="text-3xl font-bold text-gray-800">Projects</h2>
 
